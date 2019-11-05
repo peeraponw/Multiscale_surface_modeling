@@ -27,7 +27,7 @@ r = 0.5             *unitFactor# punch radius
 h = 20              *unitFactor# punch height
 
 # # # meshing parameters
-meshSizeLocal = 0.05 *unitFactor
+meshSizeLocal = 0.05 *unitFactor *2
 meshSizeTrans = meshSizeLocal * 3
 meshSizeGlobal = meshSizeLocal * 6
 
