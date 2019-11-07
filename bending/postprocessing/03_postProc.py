@@ -2,12 +2,14 @@ from abaqus import *
 from abaqusConstants import *
 from odbAccess import *
 from odbAccess import *
+import odbAccess
 from odbSection import *
 import numpy as np
 from time import time
 import sys
 
-odbName ='bendv11_default' # without .odb
+odbName ='bending_test' # without .odb
+folderDirect = 'X:/bending_test/'
 leftEndNodesName = 'LEFTNODES'
 rightEndNodesName = 'RIGHTNODES'
 elemLocalName = 'LOCAL'
@@ -287,7 +289,12 @@ def getBendingAngle(nodesL, nodesR, nodesCoordL, nodesCoordR, myFrame):
     return np.rad2deg(angle)
         
 # # # # Open ODB and initialize variables
-myOdb = openOdb(path = odbName + '.odb')
+if odbAccess.isUpgradeRequiredForOdb(folderDirect + odbName + '.odb'):
+	odbAccess.upgradeOdb(existingOdbPath=folderDirect + odbName + '.odb',
+		upgradedOdbPath=folderDirect + odbName + '_upgraded'+'.odb')
+	myOdb = openOdb(path = folderDirect + odbName + '_upgraded'+'.odb')
+else:
+	myOdb = openOdb(path = folderDirect + odbName + '.odb')
 myAsm = myOdb.rootAssembly
 myInstance = myAsm.instances[instanceName]
 myStep = myOdb.steps[stepName]
