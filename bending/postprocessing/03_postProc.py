@@ -7,9 +7,10 @@ from odbSection import *
 import numpy as np
 from time import time
 import sys
+import os
 
-odbName ='bending_test' # without .odb
-folderDirect = 'X:/bending_test/'
+odbName ='bending_nid' # without .odb
+odbDir = ''
 leftEndNodesName = 'LEFTNODES'
 rightEndNodesName = 'RIGHTNODES'
 elemLocalName = 'LOCAL'
@@ -289,12 +290,17 @@ def getBendingAngle(nodesL, nodesR, nodesCoordL, nodesCoordR, myFrame):
     return np.rad2deg(angle)
         
 # # # # Open ODB and initialize variables
-if odbAccess.isUpgradeRequiredForOdb(folderDirect + odbName + '.odb'):
-	odbAccess.upgradeOdb(existingOdbPath=folderDirect + odbName + '.odb',
-		upgradedOdbPath=folderDirect + odbName + '_upgraded'+'.odb')
-	myOdb = openOdb(path = folderDirect + odbName + '_upgraded'+'.odb')
+odbPath = odbDir+odbName # concatenate odb file and dir
+if os.path.isfile(odbPath+'_upgraded.odb'): 
+    # if it was uphraded before, use the upgraded one
+    odbPath = odbPath+'_upgraded' 
+if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
+    # if odb needs to be upgraded, create a new one with '_upgraded' suffix
+	odbAccess.upgradeOdb(existingOdbPath=odbPath + '.odb',
+		upgradedOdbPath=odbPath + '_upgraded' + '.odb')
+	myOdb = openOdb(path = odbPath + '_upgraded'+'.odb')
 else:
-	myOdb = openOdb(path = folderDirect + odbName + '.odb')
+	myOdb = openOdb(path = odbPath + '.odb')
 myAsm = myOdb.rootAssembly
 myInstance = myAsm.instances[instanceName]
 myStep = myOdb.steps[stepName]
