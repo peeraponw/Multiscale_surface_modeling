@@ -11,10 +11,14 @@ platePart = myModel.parts['plate']
 myAsm = myModel.rootAssembly
 plateAsm = myAsm.instances['plate']
 
-jobName = 'het4_c'
+jobName = 'het1tipH37_nosup'
 
 materialName = 'DP1000'
 materialFile = 'DP1000M.inp'
+
+materialName_local = 'DP1000_local'
+materialFile_local = 'DP1000M_local.inp'
+
 isMBW = 1
 
 moveDistance = 16 *unitFactor
@@ -32,13 +36,23 @@ youngMod = 210000
 poissonRatio = 0.3
 density = 7.85e-9 / (unitFactor)**3
 # # # Create material
+# normal material
 myModel.Material(name = materialName)
 myMaterial = myModel.materials[materialName]
 myMaterial.Elastic(table=((youngMod, poissonRatio), ))
 myMaterial.Density(table=((density, ), ))
+# local material
+myModel.Material(name = materialName_local)
+myMaterial = myModel.materials[materialName_local]
+myMaterial.Elastic(table=((youngMod, poissonRatio), ))
+myMaterial.Density(table=((density, ), ))
 # # # Section Assignment
 myModel.HomogeneousSolidSection(material = materialName, name = 'Section-1', thickness = None)
-platePart.SectionAssignment(sectionName = 'Section-1', region = Region(cells = platePart.cells))
+platePart.SectionAssignment(sectionName = 'Section-1', region = platePart.sets['globalMat'])
+myModel.HomogeneousSolidSection(material = materialName_local, name = 'Section-2', thickness = None)
+platePart.SectionAssignment(sectionName = 'Section-2', region = platePart.sets['localMat'])
+
+
 # # # Define BCs
 # symm BC if cut
 if symmFac <= 2:
@@ -53,8 +67,12 @@ if symmFac <= 1:
 # fixed BC
 myModel.EncastreBC(createStepName='Initial', name='top-fix',
     region=myAsm.sets['top-fix'])
-myModel.EncastreBC(createStepName='Initial', name='box-fix',
+myModel.EncastreBC(createStepName='Initial', name='bot-fix',
     region=myAsm.sets['bot-fix'])
+# myModel.DisplacementBC(createStepName='Initial', name='top-fix',
+    # region=myAsm.sets['top-fix'], u1=0,u3=0,ur1=0,ur2=0,ur3=0)
+# myModel.DisplacementBC(createStepName='Initial', name='bot-fix',
+    # region=myAsm.sets['bot-fix'], u1=0,u3=0,ur1=0,ur2=0,ur3=0)
 # move BC
 moveAmp = myModel.TabularAmplitude(name='ramp', data=((0, 0), (simTime, 1),))
 myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod = simTime)
@@ -105,14 +123,16 @@ myAsm.regenerate()
 job = mdb.Job(name=jobName, model=myModel)
 job.writeInput()
 if isMBW == 1:
+    nMat = len(myModel.materials)
     with open(jobName+'.inp', 'rU') as inpfile:
         lines = inpfile.read().rsplit('\n')
     with open(jobName+'.inp', 'w') as outfile:
-        skiplines = 7 # the predefined material data generates 7 lines in input file
+        skiplines = 2+5*nMat # the predefined material data generates 7 lines in input file
         counter = 0
         for line in lines:
             if line == '** MATERIALS':
                 outfile.write('* INCLUDE, input='+materialFile+'\n')
+                outfile.write('* INCLUDE, input='+materialFile_local+'\n')
                 counter += 1
             if counter == 0 or counter > skiplines:
                 outfile.write(line+'\n')

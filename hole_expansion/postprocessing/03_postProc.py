@@ -6,10 +6,18 @@ from odbSection import *
 import numpy as np
 from time import time
 import sys
+import os
+#odbName ='het1t15D80d99' # without .odb
 
-odbName ='het1tipH37_f' # without .odb
+fullpath = os.getcwd()
 
-elemLocalName = [10534, 10533]
+dirName = fullpath.split('\\')
+if len(dirName) == 1: 
+    # if it's Linux path
+    dirName = fullpath.split('/')
+odbName = dirName[-1]
+
+elemLocalName = 'LOCAL'
 instanceName = 'PLATE'
 stepName = 'move'
 isEcho = True

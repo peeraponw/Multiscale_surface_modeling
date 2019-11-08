@@ -14,22 +14,22 @@ import numpy as np
 
 # # # geometrical parameters
 unitFactor = 1000. # 1 for mm-unit, 1000 for um-unit
-symmFac = 4 # 4 for full model, 2 for half model, 1 for quarter model
+symmFac = 1 # 4 for full model, 2 for half model, 1 for quater model
 # plate dimension
 d = 10              *unitFactor # hole diameter
-w = 110         /2. *unitFactor # plate width
-t = 1.0             *unitFactor # plate thickness
+w = 110         /2.  *unitFactor # plate width
+t = 1.5             *unitFactor # plate thickness
 # holder dimension
 holderD = 90        *unitFactor # fixing diameter
 # punch dimension
 punchD = 50         *unitFactor # punch diameter
 punchH = 20         *unitFactor # punch length (does not matter)
 tipD = 6            *unitFactor
-tipH = 40           *unitFactor
+tipH = 37           *unitFactor
 
 
 # # # meshing parameters
-meshSizeLocal = 0.2 *unitFactor
+meshSizeLocal = 0.1 *unitFactor
 meshSizeTrans = meshSizeLocal * 6
 meshSizeGlobal = meshSizeLocal * 6*3
 fineMeshRegionFac = 0.05
@@ -37,7 +37,7 @@ transMeshRegionFac = 0.2
 
 # # # geometry calculation # # # do not touch this part
 tr = w - (2-np.sqrt(2))*w # width after edge trimming
-eps = 1e-5
+eps = 1e-5 *unitFactor
 localMeshD = fineMeshRegionFac*(holderD-d) + d
 transMeshD = transMeshRegionFac*(holderD-localMeshD) + localMeshD
 
@@ -112,6 +112,20 @@ platePart.PartitionCellByExtrudeEdge(edges=
         platePart.edges.getByBoundingCylinder(center1=(0,0,t), center2=(0,0,t/2.), radius=localMeshD/2.)[0],
         cells=platePart.cells, line=platePart.datums[zaxisKey], sense=REVERSE)
 del myModel.sketches['__profile__']
+# local material region
+myModel.ConstrainedSketch(name='__profile__', sheetSize=w*2,
+                            transform=platePart.MakeSketchTransform(sketchPlane=platePart.faces.findAt((0,0,t)),
+                            sketchPlaneSide=SIDE1, sketchUpEdge=platePart.edges.findAt((w,0,0)),
+                            sketchOrientation=RIGHT, origin=(0,0,t)))
+mySketch = myModel.sketches['__profile__']
+mySketch.CircleByCenterPerimeter(center=(0, 0), point1=(0, d/2.+ meshSizeLocal))
+platePart.PartitionFaceBySketch(faces=platePart.faces.getByBoundingBox(
+            xMin=-w, xMax=w, yMin=-w, yMax=w, zMin=t, zMax=2*t),
+            sketch=mySketch, sketchUpEdge=platePart.edges.findAt((w,0,0)))
+platePart.PartitionCellByExtrudeEdge(edges=
+        platePart.edges.getByBoundingCylinder(center1=(0,0,t), center2=(0,0,t/2.), radius=localMeshD/2.)[0],
+        cells=platePart.cells, line=platePart.datums[zaxisKey], sense=REVERSE)
+del myModel.sketches['__profile__']
 # # make hole
 myModel.ConstrainedSketch(name='__profile__', sheetSize=w*2,
                             transform=platePart.MakeSketchTransform(sketchPlane=platePart.faces.findAt((0,0,t)),
@@ -131,6 +145,15 @@ if symmFac >= 4:
     # vertical cut
     platePart.DatumPlaneByPrincipalPlane(offset = 0, principalPlane = YZPLANE)
     platePart.PartitionCellByDatumPlane(cells = platePart.cells, datumPlane = platePart.datums[len(platePart.features)])
+# create set for local material
+platePart.Set(name='wholePlate', cells=platePart.cells)
+platePart.Set(name='localMat', cells=platePart.cells.getByBoundingCylinder(
+    center1=(0,0,0), center2=(0,0,t), radius=d/2.+meshSizeLocal))
+platePart.SetByBoolean(name='globalMat', 
+    sets=(platePart.sets['wholePlate'], platePart.sets['localMat']),
+    operation=DIFFERENCE)
+    
+    
 # # sketch punch
 myModel.Part(dimensionality=THREE_D, name='punch', type=ANALYTIC_RIGID_SURFACE)
 punchPart = myModel.parts['punch']
@@ -195,9 +218,9 @@ myAsm.seedPartInstance(size = meshSizeGlobal, regions = (plateAsm, ))
 # local mesh
 # transition zone
 myAsm.seedEdgeBySize(size=meshSizeTrans, edges=plateAsm.edges.getByBoundingCylinder(
-    center1=(0,0,0), center2=(0,t,0), radius=transMeshD/2.), constraint=FINER)
+    center1=(0,0,0), center2=(0,t+eps,0), radius=transMeshD/2.), constraint=FINER)
 myAsm.seedEdgeBySize(size=meshSizeLocal, edges=plateAsm.edges.getByBoundingCylinder(
-    center1=(0,0,0), center2=(0,t,0), radius=localMeshD/2.), constraint=FINER)
+    center1=(0,0,0), center2=(0,t+eps,0), radius=localMeshD/2.), constraint=FINER)
 # mesh control
 myAsm.setMeshControls(allowMapped=True, regions=plateAsm.cells, 
     elemShape=HEX_DOMINATED, technique=SWEEP, algorithm=ADVANCING_FRONT)
