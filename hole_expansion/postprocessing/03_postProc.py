@@ -7,7 +7,9 @@ import numpy as np
 from time import time
 import sys
 import os
-#odbName ='het1t15D80d99' # without .odb
+
+odbName = 'HET_1' # without .odb
+odbDir = 'P:/abaqus_result/trial_hole_expansion/macro_scale/HET_1/'
 
 fullpath = os.getcwd()
 
@@ -23,7 +25,8 @@ stepName = 'move'
 isEcho = True
 
 
-symmFac = float(odbName[3])
+# symmFac = float(odbName[3])   # extract from file name
+symmFac = 1                     # manual input
 
 
 
@@ -300,7 +303,20 @@ def getBendingAngle(nodesL, nodesR, nodesCoordL, nodesCoordR, myFrame):
     return np.rad2deg(angle)
         
 # # # # Open ODB and initialize variables
-myOdb = openOdb(path = odbName + '.odb')
+# myOdb = openOdb(path = odbName + '.odb')
+
+odbPath = odbDir+odbName # concatenate odb file and dir
+if os.path.isfile(odbPath+'_upgraded.odb'): 
+    # if it was uphraded before, use the upgraded one
+    odbPath = odbPath+'_upgraded' 
+if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
+    # if odb needs to be upgraded, create a new one with '_upgraded' suffix
+	odbAccess.upgradeOdb(existingOdbPath=odbPath + '.odb',
+		upgradedOdbPath=odbPath + '_upgraded' + '.odb')
+	myOdb = openOdb(path = odbPath + '_upgraded'+'.odb')
+else:
+	myOdb = openOdb(path = odbPath + '.odb')
+
 myAsm = myOdb.rootAssembly
 myInstance = myAsm.instances[instanceName]
 myStep = myOdb.steps[stepName]
