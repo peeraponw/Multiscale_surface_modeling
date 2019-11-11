@@ -26,9 +26,9 @@ import numpy as np
 # rough: SD=1.1504, rmdseed=25
 # grind: SD=0.6293, rdmseed=32
 # smooth: SD=0.0429, rdmseed=29
-roughnessMean = 0#3.8017 # in micrometer
-roughnessSD = 0.0429 # dimensionless
-rdmseed = 29 # seed for random generator
+roughnessMean = 0 #3.8017 # in micrometer
+roughnessSD = 1.1504 # dimensionless
+rdmseed = 25 # seed for random generator
 randomPtNum = 49 # number of points in the middle to random depth
 order = 5      # spline equation's order (cannot be bigger than randomPtNum+1)
 if order > randomPtNum+1: order = randomPtNum+1

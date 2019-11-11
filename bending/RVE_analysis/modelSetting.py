@@ -11,7 +11,7 @@ myAssembly = myModel.rootAssembly
 cutPart = myAssembly.instances['Cut_Part-1']
 
 materialName = 'DP1000'
-materialFilename = 'MaterialData_CB.inp'
+materialFilename = 'MaterialData_CB_um_mod.inp'
 
 moveDistance = 0.2*boxsize
 simScheme = 'EXPLICIT'
