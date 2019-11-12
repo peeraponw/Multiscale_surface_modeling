@@ -153,7 +153,7 @@ else:
         myModel.DisplacementBC(name = 'move', createStepName = 'move', distributionType = UNIFORM,
                region = Region(faces = cutPart.faces.getByBoundingBox(
                     xMin = 0.5*boxsize,     xMax = boxsize,
-                    yMin = -boxsize,        yMax = boxsize,s
+                    yMin = -boxsize,        yMax = boxsize,
                     zMin = -boxsize,        zMax = boxsize)),
                u1 = moveDistance, amplitude = 'ramp')
     elif simScheme == 'IMPLICIT':
