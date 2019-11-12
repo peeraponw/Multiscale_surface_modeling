@@ -4,20 +4,34 @@ from abaqus import *
 from abaqusConstants import *
 from caeModules import *
 from regionToolset import *
+
+
 boxsize = 50
 nIntervals = 100
 myModel = mdb.models['Model-1']
 myAssembly = myModel.rootAssembly
 cutPart = myAssembly.instances['Cut_Part-1']
 
+jobName = 'micro_bending_0'
+
 materialName = 'DP1000'
-materialFilename = 'MaterialData_CB_um_mod.inp'
+materialFile = 'MaterialData_CB_um_mod.inp'
 
 moveDistance = 0.2*boxsize
+simTime = 0.01
 simScheme = 'EXPLICIT'
 meshSize = 1
 localMeshSize = 0.1
 
+isMBW = 1
+
+varList = ('S', 'PEEQ', 'U', 'RF', 'EVOL', 'SDV', 'STATUS') # if apply MBW, do not forget SDV 
+
+# do not care this if use mbw input file
+youngMod = 210000
+poissonRatio = 0.3
+density = 7.85e-9 / 1000**3
+'''
 def readMaterialFromFile(filename, mat):
     with open(filename, 'rU') as matfile:
         isElasPlas = 0
@@ -63,11 +77,12 @@ def readMaterialFromFile(filename, mat):
     myMaterial.Elastic(table = ((youngMod, poissonRatio), ))
     myMaterial.Density(table = ((density, ), ))
     myMaterial.Plastic(table = flow)
-    
+'''    
 # # Create material
 myModel.Material(name = materialName)
 myMaterial = myModel.materials[materialName]
-readMaterialFromFile(materialFilename, myMaterial)
+myMaterial.Elastic(table=((youngMod, poissonRatio), ))
+myMaterial.Density(table=((density, ), ))
 
 if dimension == '2D':
     # # Section Assignment
@@ -84,15 +99,15 @@ if dimension == '2D':
                         xMin = -boxsize,    xMax = boxsize,
                         yMin = -boxsize,    yMax = -0.5*boxsize,
                         zMin = -boxsize,    zMax = boxsize )))
-    moveAmplitude = myModel.TabularAmplitude(name = 'ramp0.01', data = ((0, 0), (0.01, 1),))
+    moveAmplitude = myModel.TabularAmplitude(name = 'ramp', data = ((0, 0), (simTime, 1),))
     if simScheme == 'EXPLICIT':
-        myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod=0.01)
+        myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod=simTime)
         myModel.DisplacementBC(name = 'move', createStepName = 'move', distributionType = UNIFORM,
                region = Region(edges = cutPart.edges.getByBoundingBox(
                     xMin = 0.5*boxsize,     xMax = boxsize,
                     yMin = -boxsize,        yMax = boxsize,
                     zMin = -boxsize,        zMax = boxsize)),
-               u1 = moveDistance, amplitude = 'ramp0.01')
+               u1 = moveDistance, amplitude = 'ramp')
     elif simScheme == 'IMPLICIT':
         myModel.StaticStep(name = 'move', previous = 'Initial', nlgeom = ON, initialInc = 1e-6, minInc = 1e-15, maxNumInc=100000)
         myModel.DisplacementBC(name = 'move', createStepName = 'move', distributionType = UNIFORM,
@@ -132,7 +147,7 @@ else:
                         yMin = -boxsize,        yMax = boxsize,
                         zMin = -boxsize,        zMax = boxsize)),
                     u3 = 0)
-    moveAmplitude = myModel.TabularAmplitude(name = 'ramp0.01', data = ((0, 0), (0.01, 1),))
+    moveAmplitude = myModel.TabularAmplitude(name = 'ramp', data = ((0, 0), (0.01, 1),))
     if simScheme == 'EXPLICIT':
         myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod=0.01)
         myModel.DisplacementBC(name = 'move', createStepName = 'move', distributionType = UNIFORM,
@@ -140,7 +155,7 @@ else:
                     xMin = 0.5*boxsize,     xMax = boxsize,
                     yMin = -boxsize,        yMax = boxsize,
                     zMin = -boxsize,        zMax = boxsize)),
-               u1 = moveDistance, amplitude = 'ramp0.01')
+               u1 = moveDistance, amplitude = 'ramp')
     elif simScheme == 'IMPLICIT':
         myModel.StaticStep(name = 'move', previous = 'Initial', nlgeom = ON, initialInc = 1e-6, minInc = 1e-15)
         myModel.DisplacementBC(name = 'move', createStepName = 'move', distributionType = UNIFORM,
@@ -156,8 +171,27 @@ else:
     myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ) )
     myAssembly.seedEdgeBySize(size = localMeshSize, edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
-                            yMin = 0.4*boxsize, yMax = boxsize,
+                            yMin = 0.80*0.5*boxsize, yMax = 0.5*boxsize+roughnessMean,
                             zMin = -boxsize,    zMax = 0))
     myAssembly.generateMesh(regions = (cutPart, ))
-varList = ('S', 'PEEQ', 'U', 'RF', 'EVOL')
+
 myModel.fieldOutputRequests['F-Output-1'].setValues(variables = varList, numIntervals = nIntervals)
+# # # create job
+myAssembly.regenerate()
+job = mdb.Job(name=jobName, model=myModel)
+job.writeInput()
+if isMBW == 1:
+    nMat = len(myModel.materials)
+    with open(jobName+'.inp', 'rU') as inpfile:
+        lines = inpfile.read().rsplit('\n')
+    with open(jobName+'.inp', 'w') as outfile:
+        skiplines = 2+5*nMat # the predefined material data generates 7 lines in input file
+        counter = 0
+        for line in lines:
+            if line == '** MATERIALS':
+                outfile.write('* INCLUDE, input='+materialFile+'\n')
+                counter += 1
+            if counter == 0 or counter > skiplines:
+                outfile.write(line+'\n')
+                continue
+            counter += 1

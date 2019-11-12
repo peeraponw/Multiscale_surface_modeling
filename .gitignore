@@ -21,3 +21,5 @@ bending/RVE_analysis/micro_bending.inp
 bending/RVE_analysis/micro_bending_0.inp
 
 *.log
+
+bending/postprocessing/bending_nid.csv
