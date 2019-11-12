@@ -153,7 +153,7 @@ else:
         myModel.DisplacementBC(name = 'move', createStepName = 'move', distributionType = UNIFORM,
                region = Region(faces = cutPart.faces.getByBoundingBox(
                     xMin = 0.5*boxsize,     xMax = boxsize,
-                    yMin = -boxsize,        yMax = boxsize,
+                    yMin = -boxsize,        yMax = boxsize,s
                     zMin = -boxsize,        zMax = boxsize)),
                u1 = moveDistance, amplitude = 'ramp')
     elif simScheme == 'IMPLICIT':
@@ -171,7 +171,7 @@ else:
     myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ) )
     myAssembly.seedEdgeBySize(size = localMeshSize, edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
-                            yMin = 0.80*0.5*boxsize, yMax = 0.5*boxsize+roughnessMean,
+                            yMin = 0.80*0.5*boxsize, yMax =boxsize,
                             zMin = -boxsize,    zMax = 0))
     myAssembly.generateMesh(regions = (cutPart, ))
 
