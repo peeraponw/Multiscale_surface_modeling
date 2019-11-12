@@ -1,7 +1,6 @@
 from abaqus import *
 from abaqusConstants import *
 from odbAccess import *
-from odbAccess import *
 from odbSection import *
 import odbSection
 import odbAccess
@@ -11,8 +10,8 @@ from time import time
 import sys
 
 # # # Parameter section
-path = 'postprocessing/2D/'
-odbName = 'mises-grind-mesh01' # without .odb
+odbDir = 'postprocessing/'
+odbName = 'grind-mbw03' # without .odb
 if odbName[-4:] == '.inp': odbName = odbName[:-4]
 boxsize = 50 
 # localPoint:   smooth (-20.8932, 24.8898)
@@ -21,7 +20,7 @@ boxsize = 50
 localPoint = (10.9539, 23.8227)
 localbox = 10
 localRatioY = 0.9
-isEcho = False
+isEcho = True
 onlyFD = False
 isGlobalCalc = True
 # # # Define name
@@ -48,7 +47,10 @@ class elem:
         for j in range(0, nFrames):
             myFrame = myStep.frames[j+1]
             fieldSvalues = myFrame.fieldOutputs['S'].values[idx]
-            fieldPEEQvalues = myFrame.fieldOutputs['PEEQ'].values[idx]
+            try:
+                fieldPEEQvalues = myFrame.fieldOutputs['PEEQ'].values[idx]
+            except:
+                fieldPEEQvalues = myFrame.fieldOutputs['SDV1'].values[idx]
             p[j] = fieldSvalues.press
             q[j] = fieldSvalues.mises
             r[j] = fieldSvalues.inv3
@@ -221,7 +223,17 @@ def getVolumeAvgVar(elemList):
     avgPeeq = np.sum(peeq*volume, axis=1)/sumvolume
     return avgPeeq, avgTriax, avgLode
 # # # Open ODB and initialize variables
-myOdb = openOdb(path = path + odbName + '.odb')
+odbPath = odbDir+odbName # concatenate odb file and dir
+if os.path.isfile(odbPath+'_upgraded.odb'): 
+    # if it was uphraded before, use the upgraded one
+    odbPath = odbPath+'_upgraded' 
+if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
+    # if odb needs to be upgraded, create a new one with '_upgraded' suffix
+	odbAccess.upgradeOdb(existingOdbPath=odbPath + '.odb',
+		upgradedOdbPath=odbPath + '_upgraded' + '.odb')
+	myOdb = openOdb(path = odbPath + '_upgraded'+'.odb')
+else:
+	myOdb = openOdb(path = odbPath + '.odb')
 myAsm = myOdb.rootAssembly
 myInstance = myAsm.instances[instanceName]
 myStep = myOdb.steps[stepName]
