@@ -5,3 +5,19 @@
 bending/bend_sm_f.inp
 
 bending/~$force-disp.xlsx
+
+bending/RVE_analysis/ABQcaeG.00.dmp
+
+bending/RVE_analysis/abaqus.rpy
+
+bending/RVE_analysis/abaqus_acis.log
+
+bending/RVE_analysis/postprocessing/
+
+bending/RVE_analysis/VORONOI.pyc
+
+bending/RVE_analysis/micro_bending.inp
+
+bending/RVE_analysis/micro_bending_0.inp
+
+*.log
