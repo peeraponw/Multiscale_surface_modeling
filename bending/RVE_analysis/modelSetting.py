@@ -31,8 +31,8 @@ varList = ('S', 'PEEQ', 'U', 'RF', 'EVOL', 'SDV', 'STATUS') # if apply MBW, do n
 youngMod = 210000
 poissonRatio = 0.3
 density = 7.85e-9 / 1000**3
-'''
-def readMaterialFromFile(filename, mat):
+
+def readMaterialFromFile(filename):
     with open(filename, 'rU') as matfile:
         isElasPlas = 0
         isDIL = 0
@@ -74,15 +74,16 @@ def readMaterialFromFile(filename, mat):
                 isFlow = 1
             if '*Density' in line:
                 isDensity = 1
-    myMaterial.Elastic(table = ((youngMod, poissonRatio), ))
-    myMaterial.Density(table = ((density, ), ))
     myMaterial.Plastic(table = flow)
-'''    
+    
 # # Create material
 myModel.Material(name = materialName)
 myMaterial = myModel.materials[materialName]
 myMaterial.Elastic(table=((youngMod, poissonRatio), ))
 myMaterial.Density(table=((density, ), ))
+if isMBW == 0:
+    readMaterialFromFile(materialFile)
+
 
 if dimension == '2D':
     # # Section Assignment
