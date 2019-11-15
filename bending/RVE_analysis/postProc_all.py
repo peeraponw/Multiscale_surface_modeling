@@ -1,6 +1,7 @@
 from abaqus import *
 from abaqusConstants import *
 from odbAccess import *
+from odbAccess import *
 from odbSection import *
 import odbSection
 import odbAccess
@@ -10,25 +11,21 @@ from time import time
 import sys
 
 # # # Parameter section
-odbDir = 'postprocessing/'
-odbName = 'grind-mbw03' # without .odb
+path = 'postprocessing/'
+odbName = 'grind-mbw06' # without .odb
+features = ['peeq', 'mises', 'triax', 'lode', 'volume']
 if odbName[-4:] == '.inp': odbName = odbName[:-4]
 boxsize = 50 
 # localPoint:   smooth (-20.8932, 24.8898)
 #               grind (10.9539, 23.8227)
-#               rough (-15.9562, 22.5945)           
+#               rough (-15.9562, 22.5945)
 localPoint = (10.9539, 23.8227)
 localbox = 10
 localRatioY = 0.9
 isEcho = True
-onlyFD = False
-isGlobalCalc = True
 # # # Define name
 instanceName = 'CUT_PART-1'
 stepName = 'move'
-# # # Multiplier
-forceMul = 1
-dispMul = 1
 
 class elem:
     '''
@@ -222,26 +219,35 @@ def getVolumeAvgVar(elemList):
     avgLode = np.sum(lode*volume, axis=1)/sumvolume
     avgPeeq = np.sum(peeq*volume, axis=1)/sumvolume
     return avgPeeq, avgTriax, avgLode
+def echo(s):
+    with open(odbName+'.log', 'a') as logfile: # append the log file after initiation previously.
+        logfile.write(s)
+    print(s)
+def getElapseTime(sec):
+    m, s = divmod(sec, 60)
+    h, m = divmod(m, 60)
+    return int(h), int(m), round(s, 3)
 # # # Open ODB and initialize variables
-odbPath = odbDir+odbName # concatenate odb file and dir
-if os.path.isfile(odbPath+'_upgraded.odb'): 
-    # if it was uphraded before, use the upgraded one
-    odbPath = odbPath+'_upgraded' 
-if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
-    # if odb needs to be upgraded, create a new one with '_upgraded' suffix
-	odbAccess.upgradeOdb(existingOdbPath=odbPath + '.odb',
-		upgradedOdbPath=odbPath + '_upgraded' + '.odb')
-	myOdb = openOdb(path = odbPath + '_upgraded'+'.odb')
-else:
-	myOdb = openOdb(path = odbPath + '.odb')
+myOdb = openOdb(path = path + odbName + '.odb')
 myAsm = myOdb.rootAssembly
 myInstance = myAsm.instances[instanceName]
 myStep = myOdb.steps[stepName]
-nFrames = len(myStep.frames)
+nFrames = len(myStep.frames)-1
 nElems = len(myInstance.elements)
 nNodes = len(myInstance.nodes)
 prevTime = time()
-
+initTime = time()
+if isEcho == True:
+    '''
+    isEcho is a variable that indicates if the script will report its status during post processing or not.
+    '''
+    s = ''' 
+        Opening file: {odbName}.odb
+        The database contains {nElems} elements with {nFrames} frames.
+        '''.format(odbName=odbName, nElems=nElems, nFrames=nFrames)
+    with open(odbName+'.log', 'w') as logfile: # Initiate the log file by 'w'
+        logfile.write(s)
+    print(s)
 # # # Initialize arrays for label-idx transformation
 global AllNodesLabel, AllNodesIdx, AllElemsLabel, AllElemsIdx
 AllNodesLabel = [-1]*nNodes
@@ -249,55 +255,38 @@ AllNodesIdx = [-1]*nNodes
 AllElemsLabel = [-1]*nElems
 AllElemsIdx = [-1]*nElems
 # # # Evaluate all element for global variables
-if isGlobalCalc == True:
-    globalElems = [elem(idx, myStep) for idx in range(0, nElems)]
+globalElems = []
+for idx in range(0, nElems):
+    globalElems.append(elem(idx, myStep))
     if isEcho == True:
-        print 'Time for global variable calculation: ' + str(time() - prevTime)
+        hr, mn, sc = getElapseTime(time()-initTime)
+        s = '''Processing element: {elem}/{nElems}. Elapsed time: {hr} hr, {mn} min, {sc} sec.
+            '''.format(elem=idx, nElems=nElems, hr=hr, mn=mn, sc=sc)
+        echo(s)
         prevTime = time()
-    globalPeeq, globalTriax, globalLode = getVolumeAvgVar(globalElems)
-# # # Identify local elements in region
-x, y = localPoint
-mdb = openMdb(path + odbName + '.cae')
-caeAsm = mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1']
-elemLocal = caeAsm.elements.getByBoundingBox(xMin = x-0.5*localbox, xMax = x+0.5*localbox,
-                                             yMin = y-localRatioY*localbox, yMax = y+(1-localRatioY)*localbox,
-                                             zMin = -boxsize, zMax = boxsize)
-nLocalSetsElems = len(elemLocal)
-localElemInSetsLabel = [elemLocal[i].label for i in range(0, nLocalSetsElems)]
-mdb.close()
 
-# initialize element idx array before conversion
-localElemInSetsIdx = [-1]*len(localElemInSetsLabel) # initilaize with negative values
-for i, lbl in enumerate(localElemInSetsLabel):
-    localElemInSetsIdx[i] = int(updateElemLabelToIdx(lbl, myStep.frames[0].fieldOutputs['S'].values))
-# calculate variables and assign to elem objects
-localElems = [elem(idx, myStep) for idx in localElemInSetsIdx]
+# # # rearrange the data
+nFeatures = len(features)
+title = ['el']*nElems
+for feat in features:
+    # initialize feature variables
+    exec(feat + '= np.empty((nFrames, nElems))')
+for e in globalElems:
+    # put element's feature values to their corresponding columns
+    lbl = e.label
+    title[lbl-1] = title[lbl-1]+'-{:d}'.format(lbl)
+    for feat in features:
+        exec(feat + '[:, lbl-1] = e.'+feat)
 if isEcho == True:
-    print 'Time for local variable calculation: ' + str(time() - prevTime)
-    prevTime = time()
-localPeeq, localTriax, localLode = getVolumeAvgVar(localElems)
-# write data to files
-localVal = np.c_[localPeeq, localTriax, localLode].tolist() # 3 columns: peeq, triax, lode
-title = 'PEEQ;Triax;Lode'
-with open(path+odbName + '.csv', 'w') as out:
-    out.write(title + '\n')
-    for val in localVal:
-        s = str(val)[1:-1]
-        value = s.replace(',', ';')
-        out.write(value + '\n')
-if isGlobalCalc == True:
-    globalVal = np.c_[globalPeeq, globalTriax, globalLode].tolist()
-    with open(path+odbName[:-6]+'global.csv', 'w') as out:
-        out.write(title + '\n')
-        for val in globalVal:
-            s = str(val)[1:-1]
-            value = s.replace(',', ';')
-            out.write(value + '\n')
+    hr, mn, sc = getElapseTime(time()-initTime)
+    s = '''Writing data to file... Elapsed time: {hr} hr, {mn} min, {sc} sec.
+        '''.format(hr=hr, mn=mn, sc=sc)
+# # # write everything to csv file
+import csv
+for feat in features:
+    with open(feat+'.csv', 'w') as f:
+        t = ','.join(title)
+        f.write(t+'\n')
+        writer = csv.writer(f, delimiter=',', lineterminator='\n')
+        exec('writer.writerows('+feat+'.tolist())')      
 myOdb.close()
-if isEcho == True:
-    print 'Time for writing data to file: ' + str(time() - prevTime)
-    prevTime = time()
-    pltLocalTriax = np.c_[localTriax, localPeeq].tolist()
-    session.XYData(data = pltLocalTriax[1:], name = 'Local Triax vs PEEQ')
-    pltGlobalTriax = np.c_[globalTriax, globalPeeq].tolist()
-    session.XYData(data = pltGlobalTriax[1:], name = 'Global Triax vs PEEQ')

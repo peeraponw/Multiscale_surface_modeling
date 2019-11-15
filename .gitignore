@@ -23,3 +23,5 @@ bending/RVE_analysis/micro_bending_0.inp
 *.log
 
 bending/postprocessing/bending_nid.csv
+
+bending/RVE_analysis/abaqus.rpy.1
