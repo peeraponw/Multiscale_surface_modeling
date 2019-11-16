@@ -12,7 +12,7 @@ myModel = mdb.models['Model-1']
 myAssembly = myModel.rootAssembly
 cutPart = myAssembly.instances['Cut_Part-1']
 
-jobName = 'micro_bending_0'
+jobName = 'micro_bending_0_MBW'
 
 materialName = 'DP1000'
 materialFile = 'MaterialData_CB_um_mod.inp'
@@ -21,18 +21,18 @@ moveDistance = 0.2*boxsize
 simTime = 0.01
 simScheme = 'EXPLICIT'
 meshSize = 1
-localMeshSize = 0.1
+localMeshSize = 0.3
 
 isMBW = 1
-
 varList = ('S', 'PEEQ', 'U', 'RF', 'EVOL', 'SDV', 'STATUS') # if apply MBW, do not forget SDV 
+
 
 # do not care this if use mbw input file
 youngMod = 210000
 poissonRatio = 0.3
 density = 7.85e-9 / 1000**3
-
-def readMaterialFromFile(filename):
+'''
+def readMaterialFromFile(filename, mat):
     with open(filename, 'rU') as matfile:
         isElasPlas = 0
         isDIL = 0
@@ -74,16 +74,15 @@ def readMaterialFromFile(filename):
                 isFlow = 1
             if '*Density' in line:
                 isDensity = 1
+    myMaterial.Elastic(table = ((youngMod, poissonRatio), ))
+    myMaterial.Density(table = ((density, ), ))
     myMaterial.Plastic(table = flow)
-    
+'''    
 # # Create material
 myModel.Material(name = materialName)
 myMaterial = myModel.materials[materialName]
 myMaterial.Elastic(table=((youngMod, poissonRatio), ))
 myMaterial.Density(table=((density, ), ))
-if isMBW == 0:
-    readMaterialFromFile(materialFile)
-
 
 if dimension == '2D':
     # # Section Assignment
@@ -148,9 +147,9 @@ else:
                         yMin = -boxsize,        yMax = boxsize,
                         zMin = -boxsize,        zMax = boxsize)),
                     u3 = 0)
-    moveAmplitude = myModel.TabularAmplitude(name = 'ramp', data = ((0, 0), (0.01, 1),))
+    moveAmplitude = myModel.TabularAmplitude(name = 'ramp', data = ((0, 0), (simTime, 1),))
     if simScheme == 'EXPLICIT':
-        myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod=0.01)
+        myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod=simTime)
         myModel.DisplacementBC(name = 'move', createStepName = 'move', distributionType = UNIFORM,
                region = Region(faces = cutPart.faces.getByBoundingBox(
                     xMin = 0.5*boxsize,     xMax = boxsize,
@@ -172,7 +171,7 @@ else:
     myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ) )
     myAssembly.seedEdgeBySize(size = localMeshSize, edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
-                            yMin = 0.80*0.5*boxsize, yMax =boxsize,
+                            yMin = 0.40*boxsize, yMax =boxsize,
                             zMin = -boxsize,    zMax = 0))
     myAssembly.generateMesh(regions = (cutPart, ))
 
