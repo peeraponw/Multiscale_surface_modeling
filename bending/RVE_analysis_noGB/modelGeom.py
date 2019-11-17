@@ -24,6 +24,7 @@ import VORONOI
 import numpy as np
 
 
+## Ignore if use surface input file
 # rough: SD=1.1504, rmdseed=25
 # grind: SD=0.6293, rdmseed=32
 # smooth: SD=0.0429, rdmseed=29
@@ -33,27 +34,38 @@ rdmseed = 25 # seed for random generator
 randomPtNum = 49 # number of points in the middle to random depth
 order = 5      # spline equation's order (cannot be bigger than randomPtNum+1)
 if order > randomPtNum+1: order = randomPtNum+1
-roughnessPeriodic = 0   # 1 for 4-sided periodic roughness modeling
-                        # 0 for top surface roughness modeling
-dimension = '3D'
-executeOnCaeStartup()
-myModel = mdb.models['Model-1']
+
+# ------------------------------------------------------------------------------------------------------------
 
 boxsize = 50
-isTopHalf = 1   # 1 for only top-half
-                # 0 for full-plate
+
+roughnessPeriodic = 0   # 1 for 4-sided periodic roughness modeling
+                        # 0 for top surface roughness modeling
+isSurfRandom = 0        # 1 for seed random
+                        # 0 for fourier input file
+isTopHalf = 1           # 1 for only top-half
+                        # 0 for full-plate
+dimension = '3D'
+
+surfFile = 'recon_1D_149-1A1.csv'
+
+# ------------------------------------------------------------------------------------------------------------
+
+# Start modelling
+executeOnCaeStartup()
+myModel = mdb.models['Model-1']
 
 # ------------------------------------------------------------------------------------------------------------
 
 # Create a hollowed square part to cut out
-boxerr = 1
-while boxerr:
-  ## Sketch part
-  s = myModel.ConstrainedSketch(name = '__profile__', sheetSize = 0.05)
-  g, v, d, c = s.geometry, s.vertices, s.dimensions, s.constraints
-  s.sketchOptions.setValues(decimalPlaces=6)
+## Draw inner square
+s = myModel.ConstrainedSketch(name = '__profile__', sheetSize = 0.05)
+g, v, d, c = s.geometry, s.vertices, s.dimensions, s.constraints
+s.sketchOptions.setValues(decimalPlaces=6)
+
+if isSurfRandom == 1:
   if roughnessMean == 0 and roughnessSD == 0:
-    s.rectangle(point1=(-0.5*boxsize, -0.5*boxsize), point2=(0.5*boxsize, 0.5*boxsize)) # Create inner square
+    s.rectangle(point1=(-0.5*boxsize, -0.5*boxsize), point2=(0.5*boxsize, 0.5*boxsize))
   else:
     np.random.seed(rdmseed)
     roughH = np.random.normal(roughnessMean, roughnessSD, randomPtNum)
@@ -72,7 +84,7 @@ while boxerr:
     
     rightSurfPt = np.column_stack((roughV + 0.5*boxsize, samplingPt)).tolist()
     leftSurfPt = np.column_stack((roughV - 0.5*boxsize, samplingPt)).tolist()
-    
+   
     for i in range(0, len(topSurfPt)-order+1, order):
       s.Spline(points = topSurfPt[i:i+order+1])
       if roughnessPeriodic == 1:
@@ -83,33 +95,57 @@ while boxerr:
       if isTopHalf == 0:
         s.Line(point1 = (-0.5*boxsize, -0.5*boxsize), point2 = (0.5*boxsize, -0.5*boxsize))
         s.Line(point1 = (0.5*boxsize,  -0.5*boxsize), point2 = (0.5*boxsize, 0.5*boxsize))
-        s.Line(point1 = (-0.5*boxsize, -0.5*boxsize), point2 = (-0.5*boxsize,  0.5*boxsize))
+        s.Line(point1 = (-0.5*boxsize, -0.5*boxsize), point2 = (-0.5*boxsize, 0.5*boxsize))
       if isTopHalf == 1:
         s.Line(point1 = (-0.5*boxsize, 0*boxsize), point2 = (0.5*boxsize, 0*boxsize))
         s.Line(point1 = (0.5*boxsize,  0*boxsize), point2 = (0.5*boxsize, 0.5*boxsize))
-        s.Line(point1 = (-0.5*boxsize, 0*boxsize), point2 = (-0.5*boxsize,  0.5*boxsize))
+        s.Line(point1 = (-0.5*boxsize, 0*boxsize), point2 = (-0.5*boxsize, 0.5*boxsize))
   
-  ## Extrude part
-  s.rectangle(point1=(-2.0*boxsize, -2.0*boxsize), point2=(2.0*boxsize, 2.0*boxsize)) # Create outer square
-  if dimension == '2D':
-    pbox = myModel.Part(name='box', dimensionality=TWO_D_PLANAR, type=DEFORMABLE_BODY)
-    try:
-      pbox.BaseShell(sketch=s)
-      boxerr = 0
-      print('Create box successfully')
-    except:
-      boxerr = 1
-      print('Recreate box')
-  else:
-    pbox = myModel.Part(name='box', dimensionality=THREE_D, type=DEFORMABLE_BODY)
-    try:
-      pbox.BaseSolidExtrude(sketch=s, depth=boxsize)
-      boxerr = 0
-      print('Create box successfully')
-    except:
-      boxerr = 1
-      print('Recreate box')
-  del myModel.sketches['__profile__']
+if isSurfRandom == 0:
+  rough_data = np.genfromtxt(surfFile, delimiter=',', skip_header=1)
+  samplingPt = len(rough_data)
+
+  a = np.zeros((samplingPt, 2))
+  for i in range(0, samplingPt):
+    a[(i,0)] = -boxsize/2
+    a[(i,1)] = boxsize/2
+  topSurfPt = rough_data + a
+
+  s.Spline(points = topSurfPt)
+  if isTopHalf == 0:
+    s.Line(point1 = (-0.5*boxsize, -0.5*boxsize), point2 = (0.5*boxsize, -0.5*boxsize))
+    s.Line(point1 = (0.5*boxsize,  -0.5*boxsize), point2 = (0.5*boxsize, topSurfPt[(-1,1)]))
+    s.Line(point1 = (-0.5*boxsize, -0.5*boxsize), point2 = (-0.5*boxsize, topSurfPt[(0,1)]))
+  if isTopHalf == 1:
+    s.Line(point1 = (-0.5*boxsize, 0*boxsize), point2 = (0.5*boxsize, 0*boxsize))
+    s.Line(point1 = (0.5*boxsize,  0*boxsize), point2 = (0.5*boxsize, topSurfPt[(-1,1)]))
+    s.Line(point1 = (-0.5*boxsize, 0*boxsize), point2 = (-0.5*boxsize, topSurfPt[(0,1)]))
+
+
+## Draw outer square
+s.rectangle(point1=(-2.0*boxsize, -2.0*boxsize), point2=(2.0*boxsize, 2.0*boxsize))
+
+
+## Extrude part
+if dimension == '2D':
+  pbox = myModel.Part(name='box', dimensionality=TWO_D_PLANAR, type=DEFORMABLE_BODY)
+  try:
+    pbox.BaseShell(sketch=s)
+    boxerr = 0
+    print('Create box successfully')
+  except:
+    boxerr = 1
+    print('Recreate box')
+else:
+  pbox = myModel.Part(name='box', dimensionality=THREE_D, type=DEFORMABLE_BODY)
+  try:
+    pbox.BaseSolidExtrude(sketch=s, depth=boxsize)
+    boxerr = 0
+    print('Create box successfully')
+  except:
+    boxerr = 1
+    print('Recreate box')
+del myModel.sketches['__profile__']
   
 # ------------------------------------------------------------------------------------------------------------
 
