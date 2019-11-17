@@ -1,7 +1,6 @@
 from abaqus import *
 from abaqusConstants import *
 from odbAccess import *
-from odbAccess import *
 from odbSection import *
 import odbSection
 import odbAccess
@@ -11,8 +10,10 @@ from time import time
 import sys
 
 # # # Parameter section
-path = 'postprocessing/'
-odbName = 'grind-mbw06' # without .odb
+odbName = 'micro_bending_11' # without .odb
+odbDir = 'postprocessing/'
+
+
 features = ['peeq', 'mises', 'triax', 'lode', 'volume']
 if odbName[-4:] == '.inp': odbName = odbName[:-4]
 boxsize = 50 
@@ -228,7 +229,18 @@ def getElapseTime(sec):
     h, m = divmod(m, 60)
     return int(h), int(m), round(s, 3)
 # # # Open ODB and initialize variables
-myOdb = openOdb(path = path + odbName + '.odb')
+
+odbPath = odbDir+odbName # concatenate odb file and dir
+if os.path.isfile(odbPath+'_upgraded.odb'): 
+    # if it was uphraded before, use the upgraded one
+    odbPath = odbPath+'_upgraded' 
+if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
+    # if odb needs to be upgraded, create a new one with '_upgraded' suffix
+	odbAccess.upgradeOdb(existingOdbPath=odbPath + '.odb',
+		upgradedOdbPath=odbPath + '_upgraded' + '.odb')
+	myOdb = openOdb(path = odbPath + '_upgraded'+'.odb')
+else:
+	myOdb = openOdb(path = odbPath + '.odb')
 myAsm = myOdb.rootAssembly
 myInstance = myAsm.instances[instanceName]
 myStep = myOdb.steps[stepName]
