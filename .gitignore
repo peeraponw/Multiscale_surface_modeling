@@ -25,3 +25,23 @@ bending/RVE_analysis/micro_bending_0.inp
 bending/postprocessing/bending_nid.csv
 
 bending/RVE_analysis/abaqus.rpy.1
+
+bending/RVE_analysis/abaqus.rpy.3
+
+bending/RVE_analysis/abaqus.rpy.4
+
+bending/RVE_analysis/lode.csv
+
+bending/RVE_analysis/mises.csv
+
+bending/RVE_analysis/peeq.csv
+
+bending/RVE_analysis/triax.csv
+
+bending/RVE_analysis/volume.csv
+
+hole_expansion/abaqus1.rec
+
+hole_expansion/temp.cae
+
+hole_expansion/temp.jnl
