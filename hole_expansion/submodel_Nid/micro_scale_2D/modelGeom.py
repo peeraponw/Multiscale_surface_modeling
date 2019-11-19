@@ -42,8 +42,10 @@ roughnessPeriodic = 0   # 1 for 4-sided periodic roughness modeling
                         # 0 for top surface roughness modeling
 isSurfRandom = 0        # 1 for seed random
                         # 0 for fourier input file
-isTopHalf = 1           # 1 for only top-half
+isTopHalf = 0           # 1 for only top-half
                         # 0 for full-plate
+isThinPlate = 0         # 1 for thin element = boxsize/100
+                        # 0 for cubic element = boxsize
 dimension = '3D'
 
 surfFile = 'recon_1D_149-1A1.csv'
@@ -155,7 +157,11 @@ r.rectangle(point1=(-0.7*boxsize, -0.7*boxsize), point2=(0.7*boxsize, 0.7*boxsiz
 
 ## Extrude part
 p = myModel.Part(dimensionality=THREE_D, name='plate', type=DEFORMABLE_BODY)
-p.BaseSolidExtrude(depth=boxsize/100.0, sketch=r)
+if isThinPlate == 1:
+  p.BaseSolidExtrude(depth=boxsize/100, sketch=r)
+if isThinPlate == 0:
+  p.BaseSolidExtrude(depth=boxsize, sketch=r)
+
 del myModel.sketches['__profile__']
 
 # ------------------------------------------------------------------------------------------------------------

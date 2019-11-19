@@ -185,8 +185,8 @@ else:
     myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ) )
     myAssembly.seedEdgeBySize(size = localMeshSize, edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
-                            yMin = 0.40*boxsize, yMax =boxsize,
-                            zMin = -boxsize,    zMax = 0))
+                            yMin = 0.40*boxsize, yMax = boxsize,
+                            zMin = -boxsize,    zMax = boxsize))
     myAssembly.generateMesh(regions = (cutPart, ))
 
 myModel.fieldOutputRequests['F-Output-1'].setValues(variables = varList, numIntervals = nIntervals)

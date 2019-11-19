@@ -6,33 +6,32 @@ from caeModules import *
 from regionToolset import *
 
 
-boxsize = 50
 nIntervals = 100
 myModel = mdb.models['Model-1']
 myAssembly = myModel.rootAssembly
 cutPart = myAssembly.instances['Cut_Part-1']
 
-jobName = 'micro_bending_0_Mises'
+jobName = 'micro2D_HET_1'
 
 materialName = 'DP1000'
-materialFile = 'MaterialData_CB_um_mod.inp'
+materialFile = 'DP1000M.inp'
 
 moveDistance = 0.2*boxsize
 simTime = 0.01
 simScheme = 'EXPLICIT'
-meshSize = 1.2
-localMeshSize = 0.3
+meshSize = 2
+localMeshSize = 0.5
 
-isMBW = 0
-
+isMBW = 1
 varList = ('S', 'PEEQ', 'U', 'RF', 'EVOL', 'SDV', 'STATUS') # if apply MBW, do not forget SDV 
+
 
 # do not care this if use mbw input file
 youngMod = 210000
 poissonRatio = 0.3
 density = 7.85e-9 / 1000**3
-
-def readMaterialFromFile(filename):
+'''
+def readMaterialFromFile(filename, mat):
     with open(filename, 'rU') as matfile:
         isElasPlas = 0
         isDIL = 0
@@ -74,16 +73,15 @@ def readMaterialFromFile(filename):
                 isFlow = 1
             if '*Density' in line:
                 isDensity = 1
+    myMaterial.Elastic(table = ((youngMod, poissonRatio), ))
+    myMaterial.Density(table = ((density, ), ))
     myMaterial.Plastic(table = flow)
-    
+'''    
 # # Create material
 myModel.Material(name = materialName)
 myMaterial = myModel.materials[materialName]
 myMaterial.Elastic(table=((youngMod, poissonRatio), ))
 myMaterial.Density(table=((density, ), ))
-if isMBW == 0:
-    readMaterialFromFile(materialFile)
-
 
 if dimension == '2D':
     # # Section Assignment
@@ -106,7 +104,7 @@ if dimension == '2D':
                         region = Region(edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
                             yMin = -boxsize,    yMax = 0*boxsize,
-                            zMin = -boxsize,    zMax = boxsize ))) 
+                            zMin = -boxsize,    zMax = boxsize )))        
     moveAmplitude = myModel.TabularAmplitude(name = 'ramp', data = ((0, 0), (simTime, 1),))
     if simScheme == 'EXPLICIT':
         myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod=simTime)
@@ -155,13 +153,18 @@ else:
                         region = Region(edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
                             yMin = -boxsize,    yMax = 0*boxsize,
-                            zMin = -boxsize,    zMax = boxsize ))) 
-    myModel.DisplacementBC(name = 'plane_strain', createStepName = 'Initial', distributionType = UNIFORM,
-                    region = Region(cells = cutPart.cells.getByBoundingBox(
-                        xMin = -boxsize,        xMax = boxsize,
-                        yMin = -boxsize,        yMax = boxsize,
-                        zMin = -boxsize,        zMax = boxsize)),
-                    u3 = 0)
+                            zMin = -boxsize,    zMax = boxsize )))
+    myModel.ZsymmBC(createStepName = 'Initial', name = 'zsymm',
+                    region = Region(faces = cutPart.faces.getByBoundingBox(
+                        xMin = -boxsize,    xMax = boxsize,
+                        yMin = -boxsize,    yMax = boxsize,
+                        zMin = -boxsize,    zMax = 0*boxsize )))    
+    # myModel.DisplacementBC(name = 'plane_strain', createStepName = 'Initial', distributionType = UNIFORM,
+    #                 region = Region(cells = cutPart.cells.getByBoundingBox(
+    #                     xMin = -boxsize,        xMax = boxsize,
+    #                     yMin = -boxsize,        yMax = boxsize,
+    #                     zMin = -boxsize,        zMax = boxsize)),
+    #                 u3 = 0)
     moveAmplitude = myModel.TabularAmplitude(name = 'ramp', data = ((0, 0), (simTime, 1),))
     if simScheme == 'EXPLICIT':
         myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod=simTime)
@@ -186,7 +189,7 @@ else:
     myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ) )
     myAssembly.seedEdgeBySize(size = localMeshSize, edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
-                            yMin = 0.40*boxsize, yMax = boxsize,
+                            yMin = 0.40*boxsize, yMax =boxsize,
                             zMin = -boxsize,    zMax = boxsize))
     myAssembly.generateMesh(regions = (cutPart, ))
 
