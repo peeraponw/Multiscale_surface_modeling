@@ -10,7 +10,7 @@ from time import time
 import sys
 
 # # # Parameter section
-odbName = 'micro_bending_11' # without .odb
+odbName = 'micro_bending_19' # without .odb
 odbDir = 'postprocessing/'
 
 

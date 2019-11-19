@@ -1,34 +1,19 @@
 
-*.odb
+temp/lode.csv
 
+temp/mises.csv
 
-bending/bend_sm_f.inp
+temp/peeq.csv
 
-bending/~$force-disp.xlsx
+temp/triax.csv
 
-bending/RVE_analysis/ABQcaeG.00.dmp
+temp/volume.csv
 
 bending/RVE_analysis/abaqus.rpy
 
-bending/RVE_analysis/abaqus_acis.log
-
-bending/RVE_analysis/postprocessing/
-
-bending/RVE_analysis/VORONOI.pyc
-
-bending/RVE_analysis/micro_bending.inp
-
-bending/RVE_analysis/micro_bending_0.inp
-
-*.log
-
-bending/postprocessing/bending_nid.csv
-
 bending/RVE_analysis/abaqus.rpy.1
 
-bending/RVE_analysis/abaqus.rpy.3
-
-bending/RVE_analysis/abaqus.rpy.4
+*.log
 
 bending/RVE_analysis/lode.csv
 
@@ -36,12 +21,36 @@ bending/RVE_analysis/mises.csv
 
 bending/RVE_analysis/peeq.csv
 
-bending/RVE_analysis/triax.csv
+bending/RVE_analysis/abaqus.rpy.3
 
-bending/RVE_analysis/volume.csv
+bending/RVE_analysis/abaqus.rpy.4
+
+bending/RVE_analysis/ABQcaeG.00.dmp
+
+bending/RVE_analysis/postprocessing/grind-mbw06.odb
+
+bending/RVE_analysis/postprocessing/micro_bending_19_upgraded.odb
+
+bending/RVE_analysis/postprocessing/micro_bending_19.odb
 
 hole_expansion/abaqus1.rec
+
+bending/RVE_analysis/postprocessing/
+
+bending/RVE_analysis/triax.csv
+
+bending/RVE_analysis/VORONOI.pyc
+
+bending/RVE_analysis/volume.csv
 
 hole_expansion/temp.cae
 
 hole_expansion/temp.jnl
+
+temp/
+
+hole_expansion/postprocessing/
+
+bending/RVE_analysis/micro_bending_0.inp
+
+bending/RVE_analysis/micro_bending.inp

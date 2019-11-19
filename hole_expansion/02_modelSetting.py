@@ -69,10 +69,7 @@ myModel.EncastreBC(createStepName='Initial', name='top-fix',
     region=myAsm.sets['top-fix'])
 myModel.EncastreBC(createStepName='Initial', name='bot-fix',
     region=myAsm.sets['bot-fix'])
-# myModel.DisplacementBC(createStepName='Initial', name='top-fix',
-    # region=myAsm.sets['top-fix'], u1=0,u3=0,ur1=0,ur2=0,ur3=0)
-# myModel.DisplacementBC(createStepName='Initial', name='bot-fix',
-    # region=myAsm.sets['bot-fix'], u1=0,u3=0,ur1=0,ur2=0,ur3=0)
+
 # move BC
 moveAmp = myModel.TabularAmplitude(name='ramp', data=((0, 0), (simTime, 1),))
 myModel.ExplicitDynamicsStep(name = 'move', previous = 'Initial', timePeriod = simTime)
