@@ -55,15 +55,22 @@ platePart.SectionAssignment(sectionName = 'Section-2', region = platePart.sets['
 
 # # # Define BCs
 # symm BC if cut
-if symmFac <= 2:
+if symmFac == 2 or symmFac == 1:
     myModel.XsymmBC(createStepName = 'Initial', name='halfSymm', 
         region=Region(faces=plateAsm.faces.getByBoundingBox(
         xMin=-w, xMax=0, yMin=-t, yMax=t, zMin=-w, zMax=w) ))
         
-if symmFac <= 1:
-    myModel.ZsymmBC(createStepName = 'Initial', name='quaterSymm', 
+if symmFac == 1 or symmFac == 0:
+    myModel.ZsymmBC(createStepName = 'Initial', name='quarterSymm', 
         region=Region(faces=plateAsm.faces.getByBoundingBox(
         xMin=-w, xMax=w, yMin=-t, yMax=t, zMin=-w, zMax=0) ))
+        
+# if symmFac == 0:
+    # myModel.ZsymmBC(createStepName = 'Initial', name='localSymm', 
+        # localCsys=platePart.
+        # region=Region(faces=plateAsm.faces.getByBoundingBox(
+        # xMin=-w, xMax=w, yMin=-t, yMax=t, zMin=-w, zMax=0) ))
+        
 # fixed BC
 myModel.EncastreBC(createStepName='Initial', name='top-fix',
     region=myAsm.sets['top-fix'])
@@ -112,7 +119,7 @@ myModel.FieldOutputRequest(name = 'F-Output-1', createStepName = 'move',
 myModel.FieldOutputRequest(name = 'ForceDispReq', createStepName = 'move', 
         region = myAsm.sets['refPunch'], variables = ('U', 'RF'), numIntervals = nIntervals)
 # crete set for critical element
-refNodes = plateAsm.nodes.getByBoundingSphere(center=(d/2.*np.sin(np.pi/4), t, d/2.*np.cos(np.pi/4)), radius=meshSizeLocal)
+refNodes = plateAsm.nodes.getByBoundingSphere(center=(d/2.*np.sin(asmAngle), t, d/2.*np.cos(asmAngle)), radius=meshSizeLocal)
 localElems = [refNodes[0].getElements()[idx].label for idx in range(0, len(refNodes[0].getElements()))]
 myAsm.Set(name='LOCAL', elements=plateAsm.elements.sequenceFromLabels(localElems))
 # # # create job

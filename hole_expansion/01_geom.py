@@ -15,7 +15,7 @@ import numpy as np
 # # # geometrical parameters
 unitFactor = 1000. # 1 for mm-unit, 1000 for um-unit
 symmFac = 0 # 4 for full model, 2 for half model, 1 for quater model, 0 to use revolve angle
-revolveAngle = 89 # Revolution angle if symmFac == 0 (in deg)
+revolveAngle = 3 # Revolution angle if symmFac == 0 (in deg)
 # plate dimension
 d = 10              *unitFactor # hole diameter
 w = 110         /2.  *unitFactor # plate width
@@ -135,13 +135,10 @@ if symmFac == 0:
                             sketchPlaneSide=SIDE1, sketchUpEdge=platePart.edges.findAt((w,t,0)),
                             sketchOrientation=RIGHT, origin=(0,0,t)))
     mySketch = myModel.sketches['__profile__']
-    mySketch.Line(point1=(0,0), point2=(w, w*np.tan(revolveAngle)))
-    mySketch.Line(point1=(w,w*np.tan(revolveAngle)), point2=(w,w))
-    mySketch.Line(point1=(w,w), point2=(0,w))
+    mySketch.Line(point1=(0,0), point2=(2*w, 2*w*np.tan(revolveAngle)))
+    mySketch.Line(point1=(2*w,2*w*np.tan(revolveAngle)), point2=(0,2*w))
+    mySketch.Line(point1=(0,2*w), point2=(0,0))    
     
-    mySketch.Line(point1=(0,w), point2=(0, w*np.tan(revolveAngle)))
-    
-    mySketch.Line(point1=(0, w*np.tan(revolveAngle)), point2=(0,0))
     platePart.CutExtrude(sketch=mySketch, sketchOrientation=RIGHT, 
                     sketchPlane=platePart.faces.findAt((0,0,t)),
                     sketchPlaneSide=SIDE1, sketchUpEdge=platePart.edges.findAt((w,t,0)))
@@ -171,7 +168,16 @@ platePart.CutExtrude(sketch=mySketch, sketchOrientation=RIGHT,
                     sketchPlane=platePart.faces.findAt((0,0,t)),
                     sketchPlaneSide=SIDE1, sketchUpEdge=platePart.edges.findAt((w,0,0)))
 del myModel.sketches['__profile__']
+
+# # local coord for bcs if symmFac == 0
+if symmFac == 0:
+    platePart.DatumCsysByThreePoints(coordSysType=CARTESIAN, name='Aux-CSYS',         
+        origin=platePart.vertices.findAt((d/2.*np.cos(revolveAngle), d/2.*np.sin(revolveAngle), 0)),
+        point1=platePart.vertices.findAt((d/2.*np.cos(revolveAngle), d/2.*np.sin(revolveAngle), t)),
+        point2=platePart.vertices.findAt((holderD/2.*np.cos(revolveAngle), holderD/2.*np.sin(revolveAngle), 0)))
+    csysKey = platePart.datums.keys()[-1]
     
+
 # create set for local material
 platePart.Set(name='wholePlate', cells=platePart.cells)
 platePart.Set(name='localMat', cells=platePart.cells.getByBoundingCylinder(
@@ -179,7 +185,7 @@ platePart.Set(name='localMat', cells=platePart.cells.getByBoundingCylinder(
 platePart.SetByBoolean(name='globalMat', 
     sets=(platePart.sets['wholePlate'], platePart.sets['localMat']),
     operation=DIFFERENCE)
-    
+
     
 # # sketch punch
 myModel.Part(dimensionality=THREE_D, name='punch', type=ANALYTIC_RIGID_SURFACE)
@@ -232,6 +238,16 @@ myAsm.Set(name='hole',
     center1=(0,t,0), center2=(0,0,0), radius=d/2.))
 myAsm.SetByBoolean(name='contact', sets=(myAsm.sets['bot-nonfix'], myAsm.sets['hole']),
         operation=UNION)
+        
+# # create set for symFac == 0 BC
+if symmFac == 0:
+    asmAngle = np.pi/2. - revolveAngle
+    myAsm.Set('auxBC',
+        faces=plateAsm.faces.getByBoundingCylinder(
+        center1=(d/2.*np.sin(asmAngle),t/2.,d/2.*np.cos(asmAngle)), 
+        center2=(2*w*np.sin(asmAngle),t/2.,2*w*np.cos(asmAngle)),
+        radius=t/2.))
+
 # import punch part
 myAsm.Instance(dependent=OFF, name='punch', part=punchPart)
 punchAsm = myAsm.instances['punch']
