@@ -189,7 +189,7 @@ else:
     myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ) )
     myAssembly.seedEdgeBySize(size = localMeshSize, edges = cutPart.edges.getByBoundingBox(
                             xMin = -boxsize,    xMax = boxsize,
-                            yMin = 0.40*boxsize, yMax =boxsize,
+                            yMin = 0.40*boxsize, yMax = boxsize,
                             zMin = -boxsize,    zMax = boxsize))
     myAssembly.generateMesh(regions = (cutPart, ))
 
