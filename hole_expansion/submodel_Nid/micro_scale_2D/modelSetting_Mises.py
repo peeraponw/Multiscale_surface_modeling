@@ -59,7 +59,7 @@ def readMaterialFromFile(filename):
                 if '*' not in line:
                     line = line.rsplit(',')
                     for num in range(0, len(line), 2):
-                        flow.append([float(line[num]), float(line[num+1])])
+						flow.append([float(line[num]), float(line[num+1])])
                 else:
                     isFlow = 0
             if isDensity == 1:
