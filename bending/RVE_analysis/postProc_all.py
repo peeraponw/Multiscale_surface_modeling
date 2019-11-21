@@ -1,7 +1,6 @@
 from abaqus import *
 from abaqusConstants import *
 from odbAccess import *
-from odbAccess import *
 from odbSection import *
 import odbSection
 import odbAccess
