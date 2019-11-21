@@ -49,8 +49,27 @@ hole_expansion/temp.jnl
 
 temp/
 
-hole_expansion/postprocessing/
 
 bending/RVE_analysis/micro_bending_0.inp
 
 bending/RVE_analysis/micro_bending.inp
+
+hole_expansion/het1tipH37_nosup.inp
+
+hole_expansion/postprocessing/abaqus.rpy
+
+hole_expansion/postprocessing/lode.csv
+
+hole_expansion/postprocessing/micro2D_HET_1_re_upgraded.odb
+
+hole_expansion/postprocessing/micro2D_HET_1_re.odb
+
+hole_expansion/postprocessing/mises.csv
+
+hole_expansion/postprocessing/peeq.csv
+
+hole_expansion/postprocessing/postProc_all.py
+
+hole_expansion/postprocessing/triax.csv
+
+hole_expansion/postprocessing/volume.csv
