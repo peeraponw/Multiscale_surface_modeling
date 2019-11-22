@@ -66,12 +66,12 @@ if symmFac == 1 or symmFac == 0:
         xMin=-w, xMax=w, yMin=-t, yMax=t, zMin=-w, zMax=0) ))
         
 if symmFac == 0:
-    # myModel.ZsymmBC(createStepName = 'Initial', name='localSymm', 
-        # localCsys=platePart.datums[csysKey],
-        # region=myAsm.sets['auxBC'])
-    myModel.DisplacementBC(createStepName='Initial', name='localSymm',
-        region=myAsm.sets['auxBC'],
-        u1=0, u3=0 )
+    myModel.ZsymmBC(createStepName = 'Initial', name='localSymm', 
+        localCsys=platePart.datums[csysKey],
+        region=myAsm.sets['auxBC'])
+    # myModel.DisplacementBC(createStepName='Initial', name='localSymm',
+    #     region=myAsm.sets['auxBC'],
+    #     u1=0, u3=0 )
         
 # fixed BC
 myModel.EncastreBC(createStepName='Initial', name='top-fix',

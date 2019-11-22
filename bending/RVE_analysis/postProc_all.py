@@ -10,17 +10,15 @@ from time import time
 import sys
 
 # # # Parameter section
-odbName = 'micro_bending_19' # without .odb
-odbDir = 'postprocessing/'
-
-
+path = ''
+odbName = 'micro_bending_12' # without .odb
 features = ['peeq', 'mises', 'triax', 'lode', 'volume']
 if odbName[-4:] == '.inp': odbName = odbName[:-4]
 boxsize = 50 
 # localPoint:   smooth (-20.8932, 24.8898)
 #               grind (10.9539, 23.8227)
 #               rough (-15.9562, 22.5945)
-localPoint = (10.9539, 23.8227)
+localPoint = (-3.0460, 22.1036)
 localbox = 10
 localRatioY = 0.9
 isEcho = True
@@ -228,11 +226,11 @@ def getElapseTime(sec):
     m, s = divmod(sec, 60)
     h, m = divmod(m, 60)
     return int(h), int(m), round(s, 3)
+	
 # # # Open ODB and initialize variables
-
-odbPath = odbDir+odbName # concatenate odb file and dir
+odbPath = path+odbName # concatenate odb file and dir
 if os.path.isfile(odbPath+'_upgraded.odb'): 
-    # if it was uphraded before, use the upgraded one
+    # if it was upgraded before, use the upgraded one
     odbPath = odbPath+'_upgraded' 
 if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
     # if odb needs to be upgraded, create a new one with '_upgraded' suffix
@@ -241,6 +239,7 @@ if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
 	myOdb = openOdb(path = odbPath + '_upgraded'+'.odb')
 else:
 	myOdb = openOdb(path = odbPath + '.odb')
+
 myAsm = myOdb.rootAssembly
 myInstance = myAsm.instances[instanceName]
 myStep = myOdb.steps[stepName]

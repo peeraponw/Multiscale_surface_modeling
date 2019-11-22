@@ -85,6 +85,22 @@ platePart.PartitionCellByExtrudeEdge(edges=
         platePart.edges.getByBoundingCylinder(center1=(0,0,t), center2=(0,0,t/2.), radius=holderD/2.)[0],
         cells=platePart.cells, line=platePart.datums[zaxisKey], sense=REVERSE)
 del myModel.sketches['__profile__']
+# auxBC region
+myModel.ConstrainedSketch(name='__profile__', sheetSize=w*2,
+                            transform=platePart.MakeSketchTransform(sketchPlane=platePart.faces.findAt((0,0,t)),
+                            sketchPlaneSide=SIDE1, sketchUpEdge=platePart.edges.findAt((w,0,0)),
+                            sketchOrientation=RIGHT, origin=(0,0,t)))
+mySketch = myModel.sketches['__profile__']
+mySketch.CircleByCenterPerimeter(center=(0, 0), point1=(0, holderD/2.- 2*eps))
+platePart.PartitionFaceBySketch(faces=platePart.faces.getByBoundingBox(
+            xMin=-w, xMax=w, yMin=-w, yMax=w, zMin=t, zMax=2*t),
+            sketch=mySketch, sketchUpEdge=platePart.edges.findAt((w,0,0)))
+platePart.DatumAxisByPrincipalAxis(ZAXIS)
+zaxisKey = platePart.datums.keys()[-1]
+platePart.PartitionCellByExtrudeEdge(edges=
+        platePart.edges.getByBoundingCylinder(center1=(0,0,t), center2=(0,0,t/2.), radius=holderD/2. - 2*eps)[0],
+        cells=platePart.cells, line=platePart.datums[zaxisKey], sense=REVERSE)
+del myModel.sketches['__profile__']
 # transition mesh region
 myModel.ConstrainedSketch(name='__profile__', sheetSize=w*2,
                             transform=platePart.MakeSketchTransform(sketchPlane=platePart.faces.findAt((0,0,t)),
@@ -245,7 +261,7 @@ if symmFac == 0:
     myAsm.Set('auxBC',
         faces=plateAsm.faces.getByBoundingCylinder(
         center1=(d/2.*np.sin(asmAngle),t/2.,d/2.*np.cos(asmAngle)), 
-        center2=(2*w*np.sin(asmAngle),t/2.,2*w*np.cos(asmAngle)),
+        center2=((holderD/2-eps)*np.sin(asmAngle),t/2.,(holderD/2-eps)*np.cos(asmAngle)),
         radius=t/2.))
 
 # import punch part
