@@ -27,6 +27,7 @@ isEcho = True
 
 # symmFac = float(odbName[3])   # extract from file name
 symmFac = 1                     # manual input
+                                ## 1 for quarter, 2 for half, 4 for full, 0 for revolved radial
 if symmFac == 0:
     revolveAngle = 3            # please fill in if symmFac==0
 
