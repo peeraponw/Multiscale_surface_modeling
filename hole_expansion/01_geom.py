@@ -91,7 +91,7 @@ myModel.ConstrainedSketch(name='__profile__', sheetSize=w*2,
                             sketchPlaneSide=SIDE1, sketchUpEdge=platePart.edges.findAt((w,0,0)),
                             sketchOrientation=RIGHT, origin=(0,0,t)))
 mySketch = myModel.sketches['__profile__']
-mySketch.CircleByCenterPerimeter(center=(0, 0), point1=(0, holderD/2.- 2*eps))
+mySketch.CircleByCenterPerimeter(center=(0, 0), point1=(0, holderD/2.- meshSizeGlobal))
 platePart.PartitionFaceBySketch(faces=platePart.faces.getByBoundingBox(
             xMin=-w, xMax=w, yMin=-w, yMax=w, zMin=t, zMax=2*t),
             sketch=mySketch, sketchUpEdge=platePart.edges.findAt((w,0,0)))
@@ -261,7 +261,7 @@ if symmFac == 0:
     myAsm.Set('auxBC',
         faces=plateAsm.faces.getByBoundingCylinder(
         center1=(d/2.*np.sin(asmAngle),t/2.,d/2.*np.cos(asmAngle)), 
-        center2=((holderD/2-eps)*np.sin(asmAngle),t/2.,(holderD/2-eps)*np.cos(asmAngle)),
+        center2=((holderD/2-meshSizeGlobal)*np.sin(asmAngle),t/2.,(holderD/2-meshSizeGlobal)*np.cos(asmAngle)),
         radius=t/2.))
 
 # import punch part
