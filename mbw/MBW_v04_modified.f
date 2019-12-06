@@ -189,9 +189,9 @@ C		PROPS(36)=Switch Damage on(1)/of(0)
 C		PROPS (37)=Switch brittle fracture on(1)/of(0)
 		nbrittleSwitch=PROPS (37)
 C       PROPS(38)=ratio to lower DIL due to surface
-        surfFactor=props(40)
+        surfFactor=props(38)
 C
-        nvalue = (nprops-40)/2
+        nvalue = (nprops-38)/2
 C
 C Checking for valid entries
         if (om.lt.zero) then
