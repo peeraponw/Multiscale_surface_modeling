@@ -1,0 +1,1523 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0)
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    12.372318787230565], [-14.0, 11.824371198608244], [-13.0, 
+    11.730121581798469], [-12.0, 12.210159129955851], [-11.0, 
+    11.842776096565178], [-10.0, 11.073402296837216], [-9.0, 
+    10.836118766807807], [-8.0, 10.686354609384594], [-7.0, 
+    10.406871885059825], [-6.0, 10.236987581024719], [-5.0, 
+    10.153822891952069], [-4.0, 10.529512909551169], [-3.0, 
+    11.358611221679539], [-2.0, 11.59346601748074], [-1.0, 11.071688091387099], 
+    [0.0, 10.693414846033008], [1.0, 10.562420672365384], [2.0, 
+    10.56490393672998], [3.0, 11.076365788450094], [4.0, 11.615220006565561], 
+    [5.0, 11.344176888414898], [6.0, 10.644545643569884], [7.0, 
+    10.133351184626118], [8.0, 9.8042708577713249], [9.0, 9.9150405303672606], 
+    [10.0, 10.566557478309376], [11.0, 10.939782725990099], [12.0, 
+    10.663889006390926], [13.0, 10.558016292855651], [14.0, 
+    11.052347089040786], [15.0, 11.492261823640522]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 11.492261823640522))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 12.372318787230565))
+mdb.models['Model-1'].Part(dimensionality=THREE_D, name='Part-1', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Part-1'].BaseWire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=1, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[2], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 1.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    11.092013586491024], [-14.0, 10.584956354948881], [-13.0, 
+    10.753753239055975], [-12.0, 11.341221617867182], [-11.0, 
+    10.995755054029004], [-10.0, 10.261847709782472], [-9.0, 
+    9.9537284500076666], [-8.0, 9.7165134179898054], [-7.0, 
+    9.5510985687846279], [-6.0, 9.5357921522442943], [-5.0, 
+    9.3604125067453232], [-4.0, 9.5792261278816255], [-3.0, 
+    10.511173534527664], [-2.0, 10.90489944436316], [-1.0, 10.239320657193058], 
+    [0.0, 9.6281526608137149], [1.0, 9.5488849974536905], [2.0, 
+    9.6925984794594733], [3.0, 10.128828364490133], [4.0, 10.583294096076919], 
+    [5.0, 10.401472389643292], [6.0, 9.7194872521770961], [7.0, 
+    9.1210150896707525], [8.0, 8.8747645796705719], [9.0, 9.13782299451751], 
+    [10.0, 9.7882765271500816], [11.0, 10.215073510943141], [12.0, 
+    10.075783843472941], [13.0, 9.8478109490347343], [14.0, 
+    10.159784297109505], [15.0, 10.777083728298646]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 10.777083728298646))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 11.092013586491024))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[2])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=2, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[4], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 2.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    12.768516948795076], [-14.0, 12.370412230127091], [-13.0, 
+    12.437050417855922], [-12.0, 12.937506687291974], [-11.0, 
+    12.777873993929106], [-10.0, 12.18058348232068], [-9.0, 
+    11.783108224908148], [-8.0, 11.542629174071356], [-7.0, 
+    11.519286453599349], [-6.0, 11.613612806991002], [-5.0, 11.52502896353101], 
+    [-4.0, 11.733455487573453], [-3.0, 12.522946421394979], [-2.0, 
+    12.927900283599639], [-1.0, 12.389885480129298], [0.0, 11.648296294609484], 
+    [1.0, 11.3795763131555], [2.0, 11.646189435319569], [3.0, 
+    12.209989187837321], [4.0, 12.537093743348938], [5.0, 12.315002259715548], 
+    [6.0, 11.839587095572016], [7.0, 11.455617257739952], [8.0, 
+    11.308526888274649], [9.0, 11.528216976111262], [10.0, 12.014286149039457], 
+    [11.0, 12.383502110008097], [12.0, 12.392646129021944], [13.0, 
+    12.238781098491925], [14.0, 12.316094268059631], [15.0, 
+    12.56467465148307]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.56467465148307))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 12.768516948795076))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[4])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=3, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[6], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 3.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    12.805540090482555], [-14.0, 12.292040934219072], [-13.0, 
+    12.201452285009946], [-12.0, 12.817394884972705], [-11.0, 
+    12.767135813085723], [-10.0, 11.996010135640077], [-9.0, 
+    11.546397782211347], [-8.0, 11.613004840248772], [-7.0, 11.74123020219985], 
+    [-6.0, 11.623385751521695], [-5.0, 11.436134101754405], [-4.0, 
+    11.730479655649834], [-3.0, 12.40887308844507], [-2.0, 12.618242811265045], 
+    [-1.0, 12.114742214393456], [0.0, 11.459799623487676], [1.0, 
+    11.122584770908821], [2.0, 11.325720987188053], [3.0, 11.923960828161352], 
+    [4.0, 12.263084519916948], [5.0, 12.01929536349942], [6.0, 
+    11.626077653847958], [7.0, 11.436827239630965], [8.0, 11.367109504737337], 
+    [9.0, 11.433613100165832], [10.0, 11.802709076478513], [11.0, 
+    12.275981073829213], [12.0, 12.406580960930141], [13.0, 
+    12.261492193432664], [14.0, 12.280281683929053], [15.0, 
+    12.344793787111954]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.344793787111954))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 12.805540090482555))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[6])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=4, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[8], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 4.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    12.541839776738682], [-14.0, 11.904266409911925], [-13.0, 
+    11.827753416460199], [-12.0, 12.634504822773602], [-11.0, 
+    12.644039217393232], [-10.0, 11.707435631489865], [-9.0, 
+    11.257993164515735], [-8.0, 11.619514679040039], [-7.0, 
+    11.846250866060274], [-6.0, 11.458895902202496], [-5.0, 
+    11.144682878571842], [-4.0, 11.604399141651996], [-3.0, 
+    12.272288480961908], [-2.0, 12.217775001803483], [-1.0, 
+    11.599062036383993], [0.0, 11.039482194949283], [1.0, 10.777087543027683], 
+    [2.0, 10.993937532601404], [3.0, 11.579857167386756], [4.0, 
+    11.869417903118787], [5.0, 11.591105025969071], [6.0, 11.214989923220269], 
+    [7.0, 11.096309320852161], [8.0, 11.143741187810566], [9.0, 
+    11.22219893620367], [10.0, 11.407567228145183], [11.0, 11.73729428295724], 
+    [12.0, 11.893393122020482], [13.0, 11.729883432710919], [14.0, 
+    11.6634546896464], [15.0, 11.765394223051782]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 11.765394223051782))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 12.541839776738682))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[8])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=5, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[10], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 5.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    13.35961356322181], [-14.0, 12.900282713804195], [-13.0, 
+    12.903316260721823], [-12.0, 13.644908490777656], [-11.0, 
+    13.633373829793594], [-10.0, 12.720806464395134], [-9.0, 
+    12.274784214357631], [-8.0, 12.608300281550886], [-7.0, 
+    12.753134340457997], [-6.0, 12.324363032391842], [-5.0, 
+    12.161586121722888], [-4.0, 12.816563615443599], [-3.0, 
+    13.412580180454329], [-2.0, 13.113356447546961], [-1.0, 
+    12.452838511533225], [0.0, 12.03875358747627], [1.0, 11.807280898727306], 
+    [2.0, 11.979621202917652], [3.0, 12.633227172895534], [4.0, 
+    12.983640331375504], [5.0, 12.692261572229331], [6.0, 12.409692231443099], 
+    [7.0, 12.442231731342666], [8.0, 12.498274970550623], [9.0, 
+    12.493813965692965], [10.0, 12.54033564250458], [11.0, 12.635171371964782], 
+    [12.0, 12.675875083994955], [13.0, 12.582864602905804], [14.0, 
+    12.459106743391773], [15.0, 12.415350623411207]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.415350623411207))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 13.35961356322181))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[10])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=6, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[12], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 6.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    13.534656066597453], [-14.0, 13.391662024932018], [-13.0, 
+    13.459936034288193], [-12.0, 14.034624444442516], [-11.0, 
+    13.917692161985762], [-10.0, 12.946297601897903], [-9.0, 
+    12.475827127170213], [-8.0, 12.774638298061824], [-7.0, 
+    12.795096288928011], [-6.0, 12.374564198218676], [-5.0, 
+    12.446020303002884], [-4.0, 13.204824184447643], [-3.0, 
+    13.642537199355703], [-2.0, 13.181491188505811], [-1.0, 
+    12.502207371295649], [0.0, 12.19194333312954], [1.0, 12.021418026509258], 
+    [2.0, 12.044336044646402], [3.0, 12.606738737864783], [4.0, 
+    13.184301891317837], [5.0, 13.111180070344737], [6.0, 12.876165483554544], 
+    [7.0, 13.031460807078764], [8.0, 13.089454246412497], [9.0, 
+    12.77310402654807], [10.0, 12.689809513793499], [11.0, 12.982072244605591], 
+    [12.0, 13.053375465034973], [13.0, 12.845003731748809], [14.0, 
+    12.753577011921273], [15.0, 12.680313397888849]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.680313397888849))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 13.534656066597453))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[12])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=7, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[14], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 7.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    13.312985279119474], [-14.0, 13.340025598710168], [-13.0, 
+    13.401040495430854], [-12.0, 13.793954656921759], [-11.0, 
+    13.652523541484499], [-10.0, 12.747441238408639], [-9.0, 
+    12.304555273836867], [-8.0, 12.669295055060662], [-7.0, 
+    12.757965089774295], [-6.0, 12.382958589510103], [-5.0, 
+    12.501565613156011], [-4.0, 13.198815955288669], [-3.0, 
+    13.544972132074943], [-2.0, 13.1425048369011], [-1.0, 12.474044853936066], 
+    [0.0, 12.029522954020958], [1.0, 11.839126070352268], [2.0, 
+    11.860938094395596], [3.0, 12.25398348614651], [4.0, 12.824430952298194], 
+    [5.0, 12.977612138799293], [6.0, 12.808094761582524], [7.0, 
+    12.912279122644581], [8.0, 12.961381831381345], [9.0, 12.475325936186513], 
+    [10.0, 12.258485035705323], [11.0, 12.757121170452077], [12.0, 
+    12.919705592331777], [13.0, 12.48126921178963], [14.0, 12.395410649913703], 
+    [15.0, 12.524056259688923]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.524056259688923))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 13.312985279119474))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[14])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=8, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[16], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 8.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    13.798965822843087], [-14.0, 13.899487417990979], [-13.0, 
+    13.852291742870987], [-12.0, 13.938286632993709], [-11.0, 
+    13.838476003536254], [-10.0, 13.343007915998744], [-9.0, 
+    13.029309411512742], [-8.0, 13.231840836965695], [-7.0, 
+    13.387018646080357], [-6.0, 13.231741609788614], [-5.0, 
+    13.347345997924569], [-4.0, 13.899192727459262], [-3.0, 
+    14.250505366783967], [-2.0, 14.107252864937074], [-1.0, 
+    13.728923404406686], [0.0, 13.214001774375717], [1.0, 12.699895170002119], 
+    [2.0, 12.649873423849579], [3.0, 13.107976584601083], [4.0, 
+    13.475179127418777], [5.0, 13.486749040896726], [6.0, 13.513281422216634], 
+    [7.0, 13.641383765949803], [8.0, 13.449014946887614], [9.0, 
+    12.996798890833565], [10.0, 12.925044589902903], [11.0, 
+    13.199433921393933], [12.0, 13.133842358356629], [13.0, 
+    12.814978636339177], [14.0, 12.791717646309733], [15.0, 
+    12.799968209687748]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.799968209687748))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 13.798965822843087))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[16])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=9, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[18], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 9.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    13.991981453029496], [-14.0, 14.18693353042903], [-13.0, 
+    14.132972544651411], [-12.0, 14.080902993522377], [-11.0, 
+    13.945582692937288], [-10.0, 13.66427776794899], [-9.0, 13.4602057159537], 
+    [-8.0, 13.437283726763791], [-7.0, 13.430856292049612], [-6.0, 
+    13.41331176317123], [-5.0, 13.622967873408598], [-4.0, 14.062637305386302], 
+    [-3.0, 14.374625381583998], [-2.0, 14.483295490190624], [-1.0, 
+    14.531845085327557], [0.0, 14.200347681597746], [1.0, 13.417046323262085], 
+    [2.0, 13.104157834848349], [3.0, 13.61005883698169], [4.0, 
+    13.908729345338399], [5.0, 13.682713435783135], [6.0, 13.777145784771276], 
+    [7.0, 14.039792190453296], [8.0, 13.670521862180763], [9.0, 
+    13.196622558799451], [10.0, 13.326235217458237], [11.0, 
+    13.459388274614799], [12.0, 13.257388731153396], [13.0, 
+    13.270260936058529], [14.0, 13.311998259762925], [15.0, 
+    12.893829930682006]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.893829930682006))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 13.991981453029496))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[18])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=10, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[20], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 10.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    13.790460320193748], [-14.0, 13.966975267461645], [-13.0, 
+    14.065276351250306], [-12.0, 14.251989437803177], [-11.0, 
+    14.098817594992637], [-10.0, 13.62158753030929], [-9.0, 
+    13.420448355245874], [-8.0, 13.483131499140093], [-7.0, 
+    13.385797909473201], [-6.0, 13.293110319828438], [-5.0, 
+    13.520650967951976], [-4.0, 13.868708811228645], [-3.0, 
+    14.106073439203906], [-2.0, 14.309377827499096], [-1.0, 
+    14.419627888647206], [0.0, 14.139287504629026], [1.0, 13.54704163012028], 
+    [2.0, 13.281009545087743], [3.0, 13.58722010113361], [4.0, 
+    13.820109567889327], [5.0, 13.651179462109038], [6.0, 13.653550347550311], 
+    [7.0, 13.894787296869641], [8.0, 13.689064589901246], [9.0, 
+    13.180680050467311], [10.0, 13.103671319127573], [11.0, 
+    13.314871642171592], [12.0, 13.408720879507744], [13.0, 
+    13.499041297384704], [14.0, 13.361258168377137], [15.0, 
+    12.792414773076985]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 12.792414773076985))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 13.790460320193748))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[20])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=11, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[22], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 11.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.237999843734187], [-14.0, 14.17205660854685], [-13.0, 
+    14.323491745315142], [-12.0, 14.733418765712083], [-11.0, 
+    14.632749395049165], [-10.0, 14.065994171844437], [-9.0, 
+    13.861742171229212], [-8.0, 14.059464954280061], [-7.0, 
+    14.123629887207986], [-6.0, 14.066261271121919], [-5.0, 
+    14.165707054870108], [-4.0, 14.419891709338033], [-3.0, 
+    14.714005483808581], [-2.0, 14.85375889293319], [-1.0, 14.623749036116822], 
+    [0.0, 14.16463379393039], [1.0, 13.880108251969766], [2.0, 
+    13.937005582913851], [3.0, 14.144923774336274], [4.0, 14.23871432841689], 
+    [5.0, 14.225766991291476], [6.0, 14.340392078362372], [7.0, 
+    14.506905193715175], [8.0, 14.340215762464025], [9.0, 13.88334963001885], 
+    [10.0, 13.602309026166539], [11.0, 13.6287537705446], [12.0, 
+    13.722327051590359], [13.0, 13.674806501896562], [14.0, 
+    13.364249652156465], [15.0, 13.010581305761111]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.010581305761111))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.237999843734187))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[22])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=12, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[24], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 12.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.69983987199404], [-14.0, 14.37925457603667], [-13.0, 
+    14.488953544058846], [-12.0, 14.917998469518677], [-11.0, 
+    14.771178245074147], [-10.0, 14.259415611596976], [-9.0, 
+    14.097709924360039], [-8.0, 14.199354228987692], [-7.0, 
+    14.318399388996696], [-6.0, 14.477678995217552], [-5.0, 14.61789989988343], 
+    [-4.0, 14.844922318029155], [-3.0, 15.226484216881421], [-2.0, 
+    15.288062496884166], [-1.0, 14.771544460359488], [0.0, 14.168439729384517], 
+    [1.0, 13.931294123185591], [2.0, 14.068434403604407], [3.0, 
+    14.341567842429923], [4.0, 14.443058062702324], [5.0, 14.485687023066275], 
+    [6.0, 14.785452665671386], [7.0, 14.964734104062366], [8.0, 
+    14.604430112511082], [9.0, 14.208403981996993], [10.0, 14.123955098247334], 
+    [11.0, 13.926384766310528], [12.0, 13.573135444681999], [13.0, 
+    13.372506224972099], [14.0, 13.198681094759806], [15.0, 
+    13.161883878568766]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.161883878568766))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.69983987199404))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[24])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=13, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[26], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 13.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.557768066047272], [-14.0, 14.169717845401728], [-13.0, 
+    14.347953306189368], [-12.0, 14.890323402975611], [-11.0, 
+    14.648913485364197], [-10.0, 13.986211471415601], [-9.0, 
+    13.838195015781407], [-8.0, 13.864266110720123], [-7.0, 13.80136075898745], 
+    [-6.0, 14.120905483032621], [-5.0, 14.613099682331567], [-4.0, 
+    14.848928998531603], [-3.0, 15.088775238782315], [-2.0, 15.18505044697053], 
+    [-1.0, 14.641524573258861], [0.0, 13.93981749664338], [1.0, 
+    13.765330475980845], [2.0, 13.903602697061405], [3.0, 14.043611468723057], 
+    [4.0, 14.224355065873185], [5.0, 14.396704806557592], [6.0, 
+    14.522091239609557], [7.0, 14.545759278886466], [8.0, 14.301497968766581], 
+    [9.0, 13.999792476607379], [10.0, 13.956443547651073], [11.0, 
+    13.878762832268354], [12.0, 13.498096852580165], [13.0, 
+    13.148328666556138], [14.0, 13.07320379397529], [15.0, 
+    13.267127872580813]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.267127872580813))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.557768066047272))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[26])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=14, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[28], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 14.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.619729373857187], [-14.0, 14.180927538334403], [-13.0, 
+    14.42825306119615], [-12.0, 15.20032400676455], [-11.0, 
+    14.974392216820098], [-10.0, 14.157175235512499], [-9.0, 
+    14.04952361366381], [-8.0, 14.113915929727963], [-7.0, 13.913368967124459], 
+    [-6.0, 14.327607584191707], [-5.0, 15.081463022000351], [-4.0, 
+    15.210558840362529], [-3.0, 15.204488376418341], [-2.0, 
+    15.337171534586503], [-1.0, 14.84574373524555], [0.0, 14.194345315432509], 
+    [1.0, 14.32398144436438], [2.0, 14.585346955345516], [3.0, 
+    14.494726070589643], [4.0, 14.721086372445106], [5.0, 15.057682434342917], 
+    [6.0, 14.836189758198135], [7.0, 14.579159982231799], [8.0, 
+    14.641729750214314], [9.0, 14.470793480809157], [10.0, 14.158305630059676], 
+    [11.0, 14.128428193902506], [12.0, 14.001488327207491], [13.0, 
+    13.599361464559038], [14.0, 13.418444907631764], [15.0, 
+    13.634357608625059]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.634357608625059))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.619729373857187))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[28])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=15, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[30], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 15.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.987784326013013], [-14.0, 14.388545832256652], [-13.0, 
+    14.589892073912692], [-12.0, 15.402309031514482], [-11.0, 
+    15.167130775463532], [-10.0, 14.471333522784903], [-9.0, 
+    14.51328494037211], [-8.0, 14.511482774638395], [-7.0, 14.268474268520338], 
+    [-6.0, 14.755061220927329], [-5.0, 15.386864327855481], [-4.0, 
+    15.288887272552158], [-3.0, 15.196450955016678], [-2.0, 
+    15.282481111666982], [-1.0, 14.886345387808079], [0.0, 14.603306987051957], 
+    [1.0, 14.951508533634827], [2.0, 15.121304645890541], [3.0, 
+    15.057782982737047], [4.0, 15.408730292605682], [5.0, 15.639317804699889], 
+    [6.0, 15.263126619154125], [7.0, 14.985108242343271], [8.0, 
+    15.041323017738389], [9.0, 14.937448887925887], [10.0, 14.692789258760461], 
+    [11.0, 14.450970377636825], [12.0, 14.08241813390495], [13.0, 
+    13.748367347711479], [14.0, 13.64705827318371], [15.0, 
+    13.829125536201008]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.829125536201008))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.987784326013013))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[30])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=16, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[32], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 16.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.154722667155053], [-14.0, 14.572858924184905], [-13.0, 
+    14.716479583597229], [-12.0, 15.272642344887968], [-11.0, 
+    14.966939432708369], [-10.0, 14.494140910238169], [-9.0, 
+    14.622334400770178], [-8.0, 14.522306216120619], [-7.0, 
+    14.260015237833942], [-6.0, 14.665754587804313], [-5.0, 
+    15.057302560949692], [-4.0, 14.810409458837302], [-3.0, 
+    14.675348300476861], [-2.0, 14.793509753893169], [-1.0, 
+    14.704378594420088], [0.0, 14.721622515689583], [1.0, 14.922124631806216], 
+    [2.0, 14.931181595105269], [3.0, 15.072000019456421], [4.0, 
+    15.430858311127704], [5.0, 15.351231431217226], [6.0, 14.955122636690131], 
+    [7.0, 14.809623610756731], [8.0, 14.747757772120819], [9.0, 
+    14.703003508229754], [10.0, 14.786459568011692], [11.0, 
+    14.497522524088378], [12.0, 13.815836946555468], [13.0, 
+    13.506240083286798], [14.0, 13.623124134544387], [15.0, 
+    13.920946751261212]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.920946751261212))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.154722667155053))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[32])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=17, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[34], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 17.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.25643868060234], [-14.0, 15.030103950022315], [-13.0, 
+    15.079836474981182], [-12.0, 15.233088258623388], [-11.0, 
+    14.989758191997831], [-10.0, 14.686854993242603], [-9.0, 
+    14.728554203786549], [-8.0, 14.72736683256041], [-7.0, 14.558312802498772], 
+    [-6.0, 14.696981956691626], [-5.0, 14.983987781097106], [-4.0, 
+    14.850055764640359], [-3.0, 14.597069406789483], [-2.0, 
+    14.783661140608768], [-1.0, 15.083892765817726], [0.0, 15.03376199269994], 
+    [1.0, 14.909902441602167], [2.0, 15.091631194608127], [3.0, 
+    15.416986145388581], [4.0, 15.510989354756038], [5.0, 15.281354694740466], 
+    [6.0, 14.973396703238825], [7.0, 14.816422054513689], [8.0, 
+    14.790024138233264], [9.0, 14.831509228634411], [10.0, 14.870113021932658], 
+    [11.0, 14.67203180636524], [12.0, 14.207653528415948], [13.0, 
+    13.862843140584635], [14.0, 13.8935436902773], [15.0, 14.250597410227305]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.250597410227305))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.25643868060234))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[34])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=18, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[36], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 18.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.256682970906521], [-14.0, 15.387676978892518], [-13.0, 
+    15.307671907699355], [-12.0, 15.156479838273125], [-11.0, 
+    14.99392685419137], [-10.0, 14.787919321171168], [-9.0, 14.79505969231886], 
+    [-8.0, 15.011889263483045], [-7.0, 14.949198070547801], [-6.0, 
+    14.776454863323345], [-5.0, 15.032362138945617], [-4.0, 
+    15.220377461926498], [-3.0, 14.931618865388952], [-2.0, 
+    14.964065038494944], [-1.0, 15.39095244956161], [0.0, 15.256693828297582], 
+    [1.0, 14.905712729391119], [2.0, 15.275168850048654], [3.0, 
+    15.790810603800445], [4.0, 15.745164217905115], [5.0, 15.571152921582108], 
+    [6.0, 15.470584452538555], [7.0, 15.27387932807591], [8.0, 
+    15.238965153271712], [9.0, 15.311612977498882], [10.0, 15.096481196833722], 
+    [11.0, 14.786169454961964], [12.0, 14.58828538777947], [13.0, 
+    14.281328821012305], [14.0, 14.046192349622448], [15.0, 
+    14.266931526798498]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.266931526798498))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.256682970906521))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[36])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=19, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[38], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 19.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.071532697834225], [-14.0, 15.303048966473598], [-13.0, 
+    15.207609410996666], [-12.0, 14.982319590344048], [-11.0, 
+    14.745295326428266], [-10.0, 14.523057110729834], [-9.0, 
+    14.643576317897763], [-8.0, 15.0056214702293], [-7.0, 14.891487542573167], 
+    [-6.0, 14.523612451315115], [-5.0, 14.798099077161579], [-4.0, 
+    15.225087320958702], [-3.0, 14.962390706875874], [-2.0, 
+    14.770104829054151], [-1.0, 15.11237145353347], [0.0, 15.000723114289929], 
+    [1.0, 14.528883363397002], [2.0, 14.84483395464707], [3.0, 
+    15.533490403522348], [4.0, 15.625843066534818], [5.0, 15.498881263353461], 
+    [6.0, 15.468231959456622], [7.0, 15.236737693136531], [8.0, 
+    15.122853290652207], [9.0, 15.288853916990778], [10.0, 15.103396901282922], 
+    [11.0, 14.586823060680938], [12.0, 14.315635229137426], [13.0, 
+    14.1503864139841], [14.0, 13.932945662829166], [15.0, 14.082735250969451]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.082735250969451))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.071532697834225))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[38])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=20, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[40], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 20.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.112855136176918], [-14.0, 15.31544106810029], [-13.0, 
+    15.245925906925303], [-12.0, 15.063187987927057], [-11.0, 
+    14.809097879165762], [-10.0, 14.559736364642767], [-9.0, 
+    14.758967002370003], [-8.0, 15.211366612289728], [-7.0, 
+    15.065194994149238], [-6.0, 14.651175633592269], [-5.0, 
+    14.945745937291843], [-4.0, 15.355644663663568], [-3.0, 
+    15.043204029164894], [-2.0, 14.854349438861057], [-1.0, 15.18064116860249], 
+    [0.0, 14.963098405434863], [1.0, 14.40086410193936], [2.0, 
+    14.740590162315259], [3.0, 15.518165245488476], [4.0, 15.671479070345891], 
+    [5.0, 15.540785717896696], [6.0, 15.422469894825513], [7.0, 
+    15.029713156280629], [8.0, 14.850323914684852], [9.0, 15.20144208725497], 
+    [10.0, 15.223020455950914], [11.0, 14.634793402556671], [12.0, 
+    14.235228243432818], [13.0, 14.238947181296432], [14.0, 
+    14.310189975000757], [15.0, 14.521131856224502]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.521131856224502))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.112855136176918))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[40])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=21, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[42], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 21.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.218167188819182], [-14.0, 15.357335240854336], [-13.0, 
+    15.294103896375901], [-12.0, 15.190278186501825], [-11.0, 
+    15.016254351777009], [-10.0, 14.800437249853571], [-9.0, 
+    15.037700662431769], [-8.0, 15.616924883474148], [-7.0, 15.6096356440368], 
+    [-6.0, 15.173920108443655], [-5.0, 15.314637013951463], [-4.0, 
+    15.616587361021953], [-3.0, 15.285424942906948], [-2.0, 
+    15.098285795308946], [-1.0, 15.4050935595717], [0.0, 15.134103551898351], 
+    [1.0, 14.538522055498417], [2.0, 14.936258638623329], [3.0, 
+    15.789690007823273], [4.0, 15.940324860260207], [5.0, 15.800033222337573], 
+    [6.0, 15.713010993993311], [7.0, 15.283641869814128], [8.0, 
+    14.989422693399835], [9.0, 15.308850861700035], [10.0, 15.423226149847082], 
+    [11.0, 14.901628731848684], [12.0, 14.49108071305816], [13.0, 
+    14.546037829935885], [14.0, 14.747334566328339], [15.0, 
+    14.959374922275561]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.959374922275561))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.218167188819182))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[42])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=22, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[44], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 22.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.972205519396411], [-14.0, 14.991114960978461], [-13.0, 
+    15.103577669164775], [-12.0, 15.147846802423761], [-11.0, 
+    14.913050775546889], [-10.0, 14.710167609525676], [-9.0, 
+    15.021467241551541], [-8.0, 15.655758526763735], [-7.0, 
+    15.799253493957115], [-6.0, 15.385586526252455], [-5.0, 
+    15.320073944078247], [-4.0, 15.584834595500899], [-3.0, 
+    15.276194215734188], [-2.0, 14.79812552941727], [-1.0, 14.948007077319152], 
+    [0.0, 14.91558124027263], [1.0, 14.331275523964475], [2.0, 
+    14.482848773600576], [3.0, 15.420371477910061], [4.0, 15.788107179164117], 
+    [5.0, 15.641766876770188], [6.0, 15.660235916516651], [7.0, 
+    15.482647323364947], [8.0, 15.161865380395861], [9.0, 15.263676986842949], 
+    [10.0, 15.319091380745149], [11.0, 14.88866476478343], [12.0, 
+    14.554317292141359], [13.0, 14.508058625095229], [14.0, 
+    14.443687827641474], [15.0, 14.563621369161369]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.563621369161369))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.972205519396411))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[44])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=23, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[46], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 23.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.841369334274455], [-14.0, 14.778057392490206], [-13.0, 
+    15.08725105351904], [-12.0, 15.191600524126851], [-11.0, 
+    14.883225725983932], [-10.0, 14.765237348758182], [-9.0, 
+    15.059932847111231], [-8.0, 15.50655367123259], [-7.0, 15.724753305817385], 
+    [-6.0, 15.525095890396754], [-5.0, 15.459358081052814], [-4.0, 
+    15.709925642766917], [-3.0, 15.339299353930107], [-2.0, 14.53177335669278], 
+    [-1.0, 14.576725925592578], [0.0, 14.841974629064971], [1.0, 
+    14.213930272375727], [2.0, 13.963067524071619], [3.0, 14.906125467251071], 
+    [4.0, 15.593647009485004], [5.0, 15.571420236702822], [6.0, 
+    15.65242464963328], [7.0, 15.613164408037301], [8.0, 15.357215150440295], 
+    [9.0, 15.454687371085535], [10.0, 15.429552004164139], [11.0, 
+    14.898815320590405], [12.0, 14.639491462275918], [13.0, 
+    14.576549507239319], [14.0, 14.131848447238573], [15.0, 
+    14.068705348140604]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.068705348140604))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.841369334274455))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[46])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=24, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[48], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 24.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.079167746670285], [-14.0, 15.03304960854822], [-13.0, 
+    15.220835934985747], [-12.0, 15.181196254983748], [-11.0, 
+    14.963446216221907], [-10.0, 15.04301700681193], [-9.0, 
+    15.244230577613276], [-8.0, 15.434513146187106], [-7.0, 
+    15.680623034849971], [-6.0, 15.678026704735755], [-5.0, 
+    15.650268304537173], [-4.0, 15.884169722159228], [-3.0, 
+    15.529398481901568], [-2.0, 14.685331056741681], [-1.0, 
+    14.782754950033496], [0.0, 15.18729211913073], [1.0, 14.47336277953899], 
+    [2.0, 13.980779989576853], [3.0, 14.883072493878394], [4.0, 
+    15.747577189690803], [5.0, 15.966902939598139], [6.0, 16.182872006945431], 
+    [7.0, 15.981180009934494], [8.0, 15.529172578986662], [9.0, 
+    15.770305940929557], [10.0, 15.864588232808002], [11.0, 
+    15.104059741853224], [12.0, 14.737916888835175], [13.0, 
+    14.824331457807473], [14.0, 14.279997760757157], [15.0, 
+    13.98104451066822]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.98104451066822))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.079167746670285))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[48])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=25, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[50], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 25.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.196065649771933], [-14.0, 15.178347556942144], [-13.0, 
+    15.14086941177364], [-12.0, 15.015142035811046], [-11.0, 
+    14.855458719058458], [-10.0, 14.92671984432077], [-9.0, 
+    15.102379542443916], [-8.0, 15.303828698596428], [-7.0, 
+    15.526653484687738], [-6.0, 15.449134598169721], [-5.0, 
+    15.326896794647324], [-4.0, 15.535825362906511], [-3.0, 
+    15.303063557321769], [-2.0, 14.616172325728465], [-1.0, 
+    14.784971291361327], [0.0, 15.221149939892102], [1.0, 14.51298208191524], 
+    [2.0, 13.984057116982429], [3.0, 14.875478907678726], [4.0, 
+    15.75406735115852], [5.0, 15.990617136126311], [6.0, 16.243078889336047], 
+    [7.0, 15.933374282847435], [8.0, 15.203657346766853], [9.0, 
+    15.420951146333879], [10.0, 15.812493132024301], [11.0, 
+    15.130792658065852], [12.0, 14.578245723700086], [13.0, 
+    14.658175547215095], [14.0, 14.205584782075933], [15.0, 
+    13.842236332750749]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.842236332750749))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.196065649771933))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[50])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=26, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[52], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 26.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.143570519562292], [-14.0, 15.138946893771237], [-13.0, 
+    15.084979087184756], [-12.0, 15.101732571470709], [-11.0, 
+    14.975526491222107], [-10.0, 14.786841388123289], [-9.0, 
+    14.861281989384326], [-8.0, 15.229553362687394], [-7.0, 
+    15.493060813523082], [-6.0, 15.366126609106825], [-5.0, 
+    15.254291996125239], [-4.0, 15.368723195811622], [-3.0, 
+    15.033834485285292], [-2.0, 14.402312499194572], [-1.0, 
+    14.595460495661511], [0.0, 15.034078491442536], [1.0, 14.454893514061087], 
+    [2.0, 14.000286174114878], [3.0, 14.863609351871501], [4.0, 
+    15.693302697844363], [5.0, 15.664786934364276], [6.0, 15.614186199920173], 
+    [7.0, 15.409439784557161], [8.0, 14.848733695574023], [9.0, 
+    14.941280588207624], [10.0, 15.420953569482027], [11.0, 
+    15.094467494395817], [12.0, 14.525292344533506], [13.0, 
+    14.343869106765453], [14.0, 13.892744127409044], [15.0, 
+    13.644683723249521]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.644683723249521))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.143570519562292))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[52])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=27, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[54], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 27.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.099327192891479], [-14.0, 15.128696675291506], [-13.0, 
+    15.152301963688855], [-12.0, 15.310110923981526], [-11.0, 
+    15.329359066777892], [-10.0, 15.032966054124033], [-9.0, 
+    14.885349595348256], [-8.0, 15.246887946224383], [-7.0, 
+    15.679527178894013], [-6.0, 15.746434577571343], [-5.0, 
+    15.760397506452541], [-4.0, 15.806963863350934], [-3.0, 
+    15.295757779002791], [-2.0, 14.553803516820942], [-1.0, 
+    14.669954893953024], [0.0, 15.098532174968984], [1.0, 14.632751414888206], 
+    [2.0, 14.232792202242498], [3.0, 15.089243335145282], [4.0, 
+    15.965207107897008], [5.0, 15.781441966778399], [6.0, 15.436976016437262], 
+    [7.0, 15.361096335557054], [8.0, 15.123531978221019], [9.0, 
+    15.076553674237786], [10.0, 15.318568252073044], [11.0, 
+    15.122833491614438], [12.0, 14.599978952244022], [13.0, 
+    14.238256465162658], [14.0, 13.778437024678121], [15.0, 
+    13.591163508012327]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.591163508012327))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.099327192891479))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[54])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=28, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[56], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 28.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.955272407775338], [-14.0, 15.002560436435449], [-13.0, 
+    15.142215712245683], [-12.0, 15.261936920813373], [-11.0, 
+    15.239251297841518], [-10.0, 15.033139270499664], [-9.0, 
+    14.871851115990927], [-8.0, 15.161074064938937], [-7.0, 
+    15.704093348519466], [-6.0, 15.867508559807032], [-5.0, 
+    15.836718168855523], [-4.0, 15.969997401858175], [-3.0, 
+    15.625154519862365], [-2.0, 14.810203285770896], [-1.0, 
+    14.701225867715785], [0.0, 14.987882791494762], [1.0, 14.481603802062626], 
+    [2.0, 14.156614811512163], [3.0, 15.176698859827241], [4.0, 
+    16.160649018669542], [5.0, 16.029512676414516], [6.0, 15.78123139008393], 
+    [7.0, 15.783420466981379], [8.0, 15.471387406474374], [9.0, 
+    15.19934394303956], [10.0, 15.236336670444562], [11.0, 14.989974365293884], 
+    [12.0, 14.478208884218352], [13.0, 14.121724385037199], [14.0, 
+    13.747868484365133], [15.0, 13.59886105326329]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.59886105326329))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.955272407775338))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[56])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=29, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[58], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 29.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    14.943851902985349], [-14.0, 14.989436298845712], [-13.0, 
+    15.292220449984832], [-12.0, 15.264862122792028], [-11.0, 
+    14.922935682619123], [-10.0, 14.724503247131155], [-9.0, 
+    14.751891494271895], [-8.0, 15.116339787007531], [-7.0, 15.6554231368122], 
+    [-6.0, 15.729051062103153], [-5.0, 15.59466683300702], [-4.0, 
+    15.816379753088745], [-3.0, 15.649341903938224], [-2.0, 
+    14.851693771458296], [-1.0, 14.552244262311381], [0.0, 14.534652114933101], 
+    [1.0, 13.908431898133349], [2.0, 13.835730447009407], [3.0, 
+    15.073004869111667], [4.0, 15.971342225090213], [5.0, 15.897882201344197], 
+    [6.0, 15.977186546089946], [7.0, 16.0616042221565], [8.0, 
+    15.511490647785358], [9.0, 15.073360337308937], [10.0, 15.116621927891448], 
+    [11.0, 14.96002100969265], [12.0, 14.538713459705502], [13.0, 
+    14.185600388682015], [14.0, 13.86364038355039], [15.0, 13.81173617704358]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 13.81173617704358))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 14.943851902985349))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[58])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=30, 
+    principalPlane=XYPLANE)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0, 
+    transform=mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].datums[60], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.0, 0.0, 30.0)))
+mdb.models['Model-1'].sketches['__profile__'].sketchOptions.setValues(
+    decimalPlaces=6)
+mdb.models['Model-1'].sketches['__profile__'].Spline(points=[[-15.0, 
+    15.192140626414297], [-14.0, 15.288120051934456], [-13.0, 
+    15.585853938751706], [-12.0, 15.418473833735884], [-11.0, 
+    14.959033951036638], [-10.0, 14.732544886616719], [-9.0, 
+    14.779778471482032], [-8.0, 15.196808549107299], [-7.0, 
+    15.777046738238807], [-6.0, 15.893252348209183], [-5.0, 
+    15.812087359690686], [-4.0, 15.953490059499831], [-3.0, 
+    15.602037042764739], [-2.0, 14.731965951251953], [-1.0, 
+    14.363741487489932], [0.0, 14.163396879293046], [1.0, 13.557650423877515], 
+    [2.0, 13.724187058842373], [3.0, 14.958482634769219], [4.0, 
+    15.696091448297663], [5.0, 15.774497270729077], [6.0, 16.159120678170368], 
+    [7.0, 16.310614105118319], [8.0, 15.69821905381329], [9.0, 
+    15.25479925255987], [10.0, 15.300791930725133], [11.0, 15.154129288574737], 
+    [12.0, 14.784663199281198], [13.0, 14.509402637214155], [14.0, 
+    14.286214763248342], [15.0, 14.220027268627989]])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(15.0, -15.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(15.0, -15.0), 
+    point2=(15.0, 14.220027268627989))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-15.0, -15.0), 
+    point2=(-15.0, 15.192140626414297))
+mdb.models['Model-1'].parts['Part-1'].Wire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[60])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].SolidLoft(endCondition=NONE, 
+    loftsections=
+    [mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f0000000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f000000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f00000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f0 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f0000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f00 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f00 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f0000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f0 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f00000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0 #f ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f000000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f0000000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:2 #f0000000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f000000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:3 #f ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f00000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:3 #f0 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f0000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:3 #f00 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:3 #f000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f00 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:3 #f0000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f0 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:3 #f00000 ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#f ]', ), ), 
+    mdb.models['Model-1'].parts['Part-1'].edges.getSequenceFromMask(mask=(
+    '[#0:3 #f000000 ]', ), )], startCondition=NONE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-14, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-13, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-12, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-11, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-10, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-9, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-8, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-7, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-6, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-5, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-4, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-3, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-2, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=-1, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=0, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=1, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=2, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=3, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=4, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=5, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=6, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=7, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=8, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=9, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=10, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=11, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=12, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=13, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=14, 
+    principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['Part-1'].DatumPlaneByPrincipalPlane(offset=
+    7.9872881217035152, principalPlane=XZPLANE)
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells, datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[92])
+mdb.models['Model-1'].parts['Part-1'].Set(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1 ]', ), ), name='upperBox')
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1 ]', ), ), datumPlane=mdb.models['Model-1'].parts['Part-1'].datums[2])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3 ]', ), ), datumPlane=mdb.models['Model-1'].parts['Part-1'].datums[4])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#7 ]', ), ), datumPlane=mdb.models['Model-1'].parts['Part-1'].datums[6])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#f ]', ), ), datumPlane=mdb.models['Model-1'].parts['Part-1'].datums[8])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1f ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[10])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3f ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[12])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#7f ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[14])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[16])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[18])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[20])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#7ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[22])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[24])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[26])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[28])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#7fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[30])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[32])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[34])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[36])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#7ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[38])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[40])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[42])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[44])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#7fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[46])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[48])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[50])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[52])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#7ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[54])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#fffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[56])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#1fffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[58])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#3fffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[63])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff #fffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[64])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:2 #3ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[65])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:3 #ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[66])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:4 #3fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[67])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:5 #fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[68])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:6 #3ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[69])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:7 #ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[70])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:8 #3fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[71])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:9 #fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[72])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:10 #3ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[73])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:11 #ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[74])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:12 #3f ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[75])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:13 #f ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[76])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:14 #3 ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[77])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:15 ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[78])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:15 #3fffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[79])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:16 #fffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[80])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:17 #3ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[81])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:18 #ffffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[82])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:19 #3fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[83])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:20 #fffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[84])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:21 #3ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[85])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:22 #ffff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[86])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:23 #3fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[87])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:24 #fff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[88])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:25 #3ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[89])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:26 #ff ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[90])
+mdb.models['Model-1'].parts['Part-1'].PartitionCellByDatumPlane(cells=
+    mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(mask=(
+    '[#ffffffff:27 #3f ]', ), ), datumPlane=
+    mdb.models['Model-1'].parts['Part-1'].datums[91])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Cut_Part-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].rootAssembly.makeIndependent(instances=(
+    mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'], ))
+# Save by ptangnun on 2019_12_06-17.24.07; build 2017 2016_09_27-23.54.59 126836
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].Material(name='DP1000')
+mdb.models['Model-1'].materials['DP1000'].Elastic(table=((210000, 0.3), ))
+mdb.models['Model-1'].materials['DP1000'].Density(table=((7.85e-18, ), ))
+mdb.models['Model-1'].materials['DP1000'].Plastic(table=[[525.7470441, 0.0], 
+    [632.1621772, 0.000963034], [713.3796435, 0.002242881], [770.3683511, 
+    0.003782156], [816.6208261, 0.005487304], [852.7107873, 0.007258699], 
+    [885.3205081, 0.009066404], [912.2610204, 0.010938101], [936.2333306, 
+    0.012816125], [956.9648449, 0.014736384], [977.7626261, 0.016646439], 
+    [993.9172761, 0.018617965], [1008.498918, 0.02059211], [1022.970844, 
+    0.022635324], [1034.522179, 0.024693786], [1047.110239, 0.026802913], 
+    [1056.575024, 0.02892049], [1066.351886, 0.031020731], [1075.175586, 
+    0.033135822], [1083.768815, 0.035281668], [1092.402944, 0.037435699], 
+    [1098.362336, 0.039618573], [1105.485038, 0.041809416], [1111.305762, 
+    0.043989122], [1118.165413, 0.046168837], [1123.507706, 0.048365933], 
+    [1129.969263, 0.050578707], [1133.542334, 0.052830641], [1139.296737, 
+    0.055077515], [1142.944521, 0.057319352], [1148.037162, 0.059593673], 
+    [1153.395411, 0.061872187], [1156.454746, 0.064151741], [1161.034179, 
+    0.06646956], [1165.750401, 0.068786663], [1168.260413, 0.071147833], 
+    [1172.446616, 0.073515768], [1175.075946, 0.075913463], [1179.376701, 
+    0.078359092], [1182.147881, 0.080810991], [1183.556648, 0.083314875], 
+    [1187.120955, 0.085849031], [1190.93168, 0.088423841], [1193.973751, 
+    0.091032919], [1197.066767, 0.093688059], [1200.16764, 0.096420503], 
+    [1203.202741, 0.099165025], [1206.2787, 0.102018847], [1209.36029, 
+    0.104952646], [1212.45812, 0.107979093], [1215.568328, 0.111097323], 
+    [1218.731316, 0.114352307], [1221.851772, 0.117648332], [1224.785977, 
+    0.120826253], [1224.917273, 0.120970264], [1225.051083, 0.121117193], 
+    [1225.196746, 0.12127732], [1225.334208, 0.12142861], [1225.474158, 
+    0.121582814], [1256.131962, 0.16], [1287.250364, 0.21], [1312.229995, 
+    0.26], [1333.16575, 0.31], [1351.226554, 0.36], [1367.13351, 0.41], 
+    [1381.36385, 0.46], [1394.250309, 0.51], [1406.034411, 0.56], [1416.897196, 
+    0.61], [1426.977968, 0.66], [1436.386279, 0.71], [1445.209888, 0.76], 
+    [1453.520214, 0.81], [1461.376182, 0.86], [1468.826989, 0.91], 
+    [1475.914153, 0.96], [1482.673036, 1.01], [1489.134015, 1.06], 
+    [1495.323381, 1.11], [1501.264045, 1.16], [1506.9761, 1.21], [1512.477262, 
+    1.26], [1517.783241, 1.31], [1522.908026, 1.36], [1527.864137, 1.41], 
+    [1532.662821, 1.46], [1537.314221, 1.51], [1541.827515, 1.56], [1546.21104, 
+    1.61], [1550.472386, 1.66], [1554.618491, 1.71], [1558.655707, 1.76], 
+    [1562.589868, 1.81], [1566.426346, 1.86], [1570.170096, 1.91], [1573.8257, 
+    1.96], [1577.397406, 2.01], [1580.889155, 2.06], [1584.304615, 2.11], 
+    [1587.647201, 2.16], [1590.920104, 2.21], [1594.126303, 2.26], 
+    [1597.268589, 2.31], [1600.34958, 2.36], [1603.371733, 2.41], [1606.337357, 
+    2.46], [1609.248627, 2.51], [1612.107593, 2.56], [1614.91619, 2.61], 
+    [1617.676243, 2.66], [1620.389482, 2.71], [1623.057543, 2.76], 
+    [1625.681976, 2.81], [1628.264253, 2.86], [1630.805769, 2.91], 
+    [1633.307853, 2.96], [1635.771767, 3.01], [1638.198713, 3.06], 
+    [1640.589836, 3.11], [1642.946228, 3.16], [1645.268932, 3.21], 
+    [1647.558943, 3.26], [1649.817213, 3.31], [1652.044649, 3.36], 
+    [1654.242124, 3.41], [1656.410471, 3.46], [1658.550488, 3.51], 
+    [1660.662942, 3.56], [1662.748567, 3.61], [1664.808068, 3.66], 
+    [1666.842124, 3.71], [1668.851384, 3.76], [1670.836476, 3.81], [1672.798, 
+    3.86], [1674.736538, 3.91], [1676.652647, 3.96], [1678.546865, 4.01], 
+    [1680.41971, 4.06], [1682.271683, 4.11], [1684.103265, 4.16], [1685.914923, 
+    4.21], [1687.707106, 4.26], [1689.480248, 4.31], [1691.234768, 4.36], 
+    [1692.971074, 4.41], [1694.689556, 4.46], [1696.390595, 4.51], 
+    [1698.074559, 4.56], [1699.741803, 4.61], [1701.392671, 4.66], 
+    [1703.027499, 4.71], [1704.646609, 4.76], [1706.250315, 4.81], 
+    [1707.838922, 4.86], [1709.412725, 4.91], [1710.972011, 4.96]])
+mdb.models['Model-1'].HomogeneousSolidSection(material='DP1000', name='DP1000', 
+    thickness=None)
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(region=Region(
+    cells=mdb.models['Model-1'].parts['Part-1'].cells.getSequenceFromMask(
+    mask=('[#ffffffff:28 #1f ]', ), )), sectionName='DP1000')
+mdb.models['Model-1'].XsymmBC(createStepName='Initial', name='xsymm', region=
+    Region(
+    faces=mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'].faces.getSequenceFromMask(
+    mask=('[#0:109 #10800000 #84210842 #21084210 #8421084 #1108421 #10085 ]', 
+    ), )))
+mdb.models['Model-1'].YsymmBC(createStepName='Initial', name='ysymm', region=
+    Region(
+    edges=mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'].edges.getSequenceFromMask(
+    mask=('[#0:146 #13200 ]', ), )))
+mdb.models['Model-1'].ZsymmBC(createStepName='Initial', name='zsymm', region=
+    Region(
+    faces=mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'].faces.getSequenceFromMask(
+    mask=('[#80000000 #0:3 #1000000 #0:3 #20000 #0:3 #400', 
+    ' #0:3 #8 #0:2 #10000000 #0:3 #200000 #0:3', 
+    ' #4000 #0:3 #80 #0:3 #1 #0:2 #2000000', 
+    ' #0:3 #40000 #0:3 #800 #0:3 #10 #0:2', 
+    ' #20000000 #0:3 #400000 #0:3 #8000 #0:3 #100', 
+    ' #0:3 #2 #0:2 #4000000 #0:3 #80000 #0:3', 
+    ' #1000 #0:3 #20 #0:2 #40000000 #0:3 #800000', 
+    ' #0:3 #10000 #0:3 #200 #0:3 #4 #0:2', ' #4000000 #0:7 #1400 ]', ), )))
+mdb.models['Model-1'].TabularAmplitude(data=((0, 0), (1e-06, 1)), name='ramp')
+mdb.models['Model-1'].ExplicitDynamicsStep(name='move', previous='Initial', 
+    timePeriod=1e-06)
+mdb.models['Model-1'].DisplacementBC(amplitude='ramp', createStepName='move', 
+    distributionType=UNIFORM, name='move', region=Region(
+    faces=mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'].faces.getSequenceFromMask(
+    mask=('[#0:109 #42000000 #10842108 #84210842 #21084210 #28421084 #4210 ]', 
+    ), )), u1=9.0)
+mdb.models['Model-1'].rootAssembly.setElementType(elemTypes=(ElemType(
+    elemCode=C3D8R, elemLibrary=EXPLICIT, secondOrderAccuracy=OFF, 
+    hourglassControl=DEFAULT, distortionControl=DEFAULT), ), regions=Region(
+    cells=mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'].cells.getSequenceFromMask(
+    mask=('[#ffffffff:28 #1f ]', ), )))
+mdb.models['Model-1'].rootAssembly.setMeshControls(elemShape=HEX_DOMINATED, 
+    regions=mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'].cells)
+mdb.models['Model-1'].rootAssembly.seedPartInstance(regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'], ), size=1.2)
+mdb.models['Model-1'].rootAssembly.seedEdgeBySize(edges=
+    mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'].edges.getSequenceFromMask(
+    mask=('[#ffffffff:146 #80ff ]', ), ), size=0.3)
+mdb.models['Model-1'].rootAssembly.generateMesh(regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Cut_Part-1'], ))
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(numIntervals=
+    100, variables=('S', 'PEEQ', 'U', 'RF', 'EVOL', 'SDV', 'STATUS'))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.Job(model=mdb.models['Model-1'], name='micro3D_HET_5_Mises')
+# Save by ptangnun on 2019_12_06-17.34.40; build 2017 2016_09_27-23.54.59 126836
+# Save by ptangnun on 2019_12_06-17.42.42; build 2017 2016_09_27-23.54.59 126836
