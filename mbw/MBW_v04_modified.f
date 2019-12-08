@@ -191,7 +191,7 @@ C		PROPS (37)=Switch brittle fracture on(1)/of(0)
 C       PROPS(38)=ratio to lower DIL due to surface
         surfFactor=props(38)
 C
-        nvalue = (nprops-38)/2
+        nvalue = (nprops-40)/2
 C
 C Checking for valid entries
         if (om.lt.zero) then
