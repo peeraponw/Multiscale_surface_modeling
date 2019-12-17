@@ -20,8 +20,8 @@ materialFile = 'DP1000M.inp'
 moveDistance = 0.3*boxsize
 simTime = 1e-6
 simScheme = 'EXPLICIT'
-meshSize = 1.2
-localMeshSize = 0.3
+meshSize = 2
+localMeshSize = 0.5
 
 isMBW = 0
 
@@ -141,7 +141,8 @@ myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ) )
 myAssembly.seedEdgeBySize(size = localMeshSize, edges = cutPart.edges.getByBoundingBox(
                         xMin = -boxsize,    xMax = boxsize,
                         yMin = partitionH, yMax = boxsize,
-                        zMin = -boxsize,    zMax = boxsize))
+                        zMin = -boxsize,    zMax = boxsize),
+                        constraint=FINER)
 myAssembly.generateMesh(regions = (cutPart, ))
 
 # ------------------------------------------------------------------------------------------------------------
