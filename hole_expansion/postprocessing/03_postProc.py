@@ -378,14 +378,16 @@ for i, lbl in enumerate(localElemInSetsLabel):
     localElemInSetsIdx[i] = int(updateElemLabelToIdx(lbl, myStep.frames[0].fieldOutputs['S'].values))
 # calculate variables and assign to elem objects
 localElems = [elem(idx, myStep) for idx in localElemInSetsIdx]
-localVal = np.empty((nFrames, nLocalSetsElems*3)) # 3 columns contain peeq, eta, thetabar
+localVal = np.empty((nFrames, nLocalSetsElems*4)) # 4 columns contain peeq, eta, thetabar, volume
 localTitle = '' # header to be filled in the output file
 for idx, el in enumerate(localElems):
     # assign variables to local value array
-    localVal[:, 3*idx:3*idx+3] = np.c_[el.peeq, el.triax, el.lode]
+    localVal[:, 4*idx:4*idx+4] = np.c_[el.peeq, el.triax, el.lode, el.volume]
     localTitle = localTitle + 'PEEQ-' + str(localElemInSetsLabel[idx]) + ','
     localTitle = localTitle + 'eta-' + str(localElemInSetsLabel[idx]) + ','
     localTitle = localTitle + 'thetabar-' + str(localElemInSetsLabel[idx]) + ','
+    localTitle = localTitle + 'volume-' + str(localElemInSetsLabel[idx]) + ','
+    
     if isEcho == True:
         pltTriax = np.c_[el.triax, el.peeq].tolist()
         pltLode = np.c_[el.lode, el.peeq].tolist()
