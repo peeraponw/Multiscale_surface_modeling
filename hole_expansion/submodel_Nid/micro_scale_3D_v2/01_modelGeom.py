@@ -30,13 +30,17 @@ import sys
 
 # ------------------------------------------------------------------------------------------------------------
 
-boxsize = 300
-surfFile = 'recon2D_Mill4_1_300um_21pnts_trim400-1000_waviness.csv'
+boxsize = 450
+surfFile = 'recon2D_WireCut4_2_450um_19pnts_trim500-950_waviness.csv'
 
-boxH_Ratio = 1/3.
-partition_ratio = 0.9
+boxH_Ratio = 'full'			   # 'full' for cubic box or number for ratio box
+partition_ratio = 0.95		   # local mesh: ratio to (minH - boxY_min)
+partition_ratio_trans = 0.80    # trans mesh: ration to (minH - boxY_min)
 
-boxY_min = boxH_Ratio *(boxsize/2)
+if boxH_Ratio == 'full':
+	boxY_min = -boxsize/2
+else:
+	boxY_min = boxH_Ratio *(boxsize/2)
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +62,7 @@ for i in range(0, boxsize+pntInterval, pntInterval):
 h = [y+boxsize/2 for [z,x,y] in rough_data]
 minH = np.amin(h)
 partitionH = boxY_min + partition_ratio*(minH - boxY_min)
+partitionH_trans = boxY_min + partition_ratio_trans*(minH - boxY_min)
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -139,9 +144,13 @@ key_yzDatum = myPart.datums.keys()[-1]
 for i in range(pntInterval, boxsize, pntInterval):
     myPart.DatumPlaneByPrincipalPlane(offset=i-boxsize/2, principalPlane=YZPLANE)
 
-## Create XZ-datum plane for partition
+## Create XZ-datum plane for local partition
 myPart.DatumPlaneByPrincipalPlane(offset=partitionH, principalPlane=XZPLANE)
 key_xzDatum = myPart.datums.keys()[-1]
+
+## Create XZ-datum plane for trans partition
+myPart.DatumPlaneByPrincipalPlane(offset=partitionH_trans, principalPlane=XZPLANE)
+key_xzDatum_trans = myPart.datums.keys()[-1]
 
 ## count no. of datum plane
 ### xy-datum: 2,4,6,...,boxsize*2 = 20 planes (not included most left)
@@ -170,6 +179,9 @@ for i in range(1, planeNo, 1):
 for i in range(key_yzDatum+3, key_yzDatum+3+planeNo-1, 1):
     myPart.PartitionCellByDatumPlane(cells=upperBox.cells, datumPlane=myPart.datums[i])
     print('yz-partition success: ' + str(i-2-key_yzDatum) + '/' + str(planeNo-1))
+
+## XZ-plane partition for trans mesh
+myPart.PartitionCellByDatumPlane(cells=myPart.cells, datumPlane=myPart.datums[key_xzDatum_trans])
 
 # ------------------------------------------------------------------------------------------------------------
 

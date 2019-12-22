@@ -12,18 +12,19 @@ nIntervals = 100
 # myAssembly = myModel.rootAssembly
 # cutPart = myAssembly.instances['Cut_Part-1']
 
-jobName = 'micro3D_HET_15_Mises'
+jobName = 'micro3D_HET_37_Mises'
 
 materialName = 'DP1000'
 materialFile = 'DP1000M.inp'
 
-moveDistance = 0.3*boxsize
-simTime = 1e-6
+moveDistance = 0.4*boxsize
+simTime = 1e-5
 simScheme = 'EXPLICIT'
 
-meshSize = 10
-localMeshSeed = 2
-surfMeshSize = 10 
+surfMeshSize = 8
+localMeshSeed = 4
+transMeshSeed = 3
+globalMeshSize = boxsize/10 
 
 eps = 1e-5
 
@@ -146,7 +147,11 @@ myAssembly.setElementType(elemTypes = (ElemType(elemCode=C3D8R, elemLibrary=EXPL
     hourglassControl=DEFAULT, distortionControl=DEFAULT),), regions = Region(cells = cutPart.cells))
 myAssembly.setMeshControls(elemShape = HEX_DOMINATED, regions = cutPart.cells)
 
-myAssembly.seedPartInstance(size = meshSize, regions = (cutPart, ))
+myAssembly.seedPartInstance(size = globalMeshSize, regions = (cutPart, ))
+myAssembly.seedEdgeByNumber(number = transMeshSeed, edges = cutPart.edges.getByBoundingBox(
+                        xMin = -boxsize,    xMax = boxsize,
+                        yMin = partitionH_trans, yMax = partitionH,
+                        zMin = -boxsize,    zMax = boxsize))
 myAssembly.seedEdgeByNumber(number = localMeshSeed, edges = cutPart.edges.getByBoundingBox(
                         xMin = -boxsize,    xMax = boxsize,
                         yMin = partitionH, yMax = boxsize,
