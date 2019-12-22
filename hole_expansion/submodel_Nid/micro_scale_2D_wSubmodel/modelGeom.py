@@ -35,22 +35,41 @@ boxsize = 30
 
 dimension = '3D'
 
-surfFile = 'recon_1D_149-1A1_elemSize30.csv'
+surfFile = 'recon_1D_flat_elemSize30.csv'
 
 # ------------------------------------------------------------------------------------------------------------
 
-odbName = 'HET_49_upgraded'  # without .odb
-elemLocalName = [164032]
+path = 'X:/HET_submodel/HET_component_model/'
+
+# 150um component
+odbName = 'HET_2_upgraded'  # without .odb
+elemLocalName = [22738]
+nodesTopLabel = [8373, 8301, 8300, 8372] # order must be ccw around the surface's normal
+
+# 100um component
+odbName = 'HET_1_upgraded'  # without .odb
+elemLocalName = [80975]
+nodesTopLabel = [19276, 19167, 19166, 19275] # order must be ccw around the surface's normal
+
+# 50um component
+odbName = 'HET_33_upgraded'  # without .odb
+elemLocalName = [70602]
+nodesTopLabel = [14324, 14301, 14300, 14323] # order must be ccw around the surface's normal
+
+#30um component
+odbName = 'HET_49_re_upgraded'  # without .odb
+elemLocalName = [164034]
+nodesTopLabel = [28140, 28121, 28120, 28139] # order must be ccw around the surface's normal
+
 instanceName = 'PLATE'
 stepName = 'move'
-nodesTopLabel = [28118, 28137, 28138, 28119] # order must be ccw around the surface's normal
 
 extPlane = 1 # 0 or 1, define the orientation of the extruded roughness techniques, will no longer used soon
 
 # ------------------------------------------------------------------------------------------------------------
 
 # # # meshing parameters
-meshSizeLocal = 1.0
+meshSizeLocal = 2.0
 meshSizeTrans = meshSizeLocal * 2
 meshSizeGlobal = meshSizeLocal * 3
 
@@ -148,7 +167,7 @@ def updateElemLabelToIdx(label, values):
 # # # --------------
 # # # load odb file
 # # # --------------
-myOdb = openOdb(path = odbName + '.odb')
+myOdb = openOdb(path = path+odbName + '.odb')
 odbAsm = myOdb.rootAssembly
 odbInstance = odbAsm.instances[instanceName]
 odbStep = myOdb.steps[stepName]
@@ -207,6 +226,10 @@ nodesTopCoord = getNodeOriginCoord(nodesTopLabel)
 
 # ------------------------------------------------------------------------------------------------------------
 
+# # # -------------------
+# # # create part
+# # # -------------------
+
 # Start modelling
 executeOnCaeStartup()
 myModel = mdb.models['Model-1']
@@ -248,20 +271,12 @@ del myModel.sketches['__profile__']
 
 # ------------------------------------------------------------------------------------------------------------
 
-# # # -------------------
-# # # create part
-# # # -------------------
+# create reference to component model
+## not use this variables since boxsize is manaully assigned, not referenced to macro medel
+xLocal = np.linalg.norm(nodesTopCoord[extPlane+1]-nodesTopCoord[extPlane])   # mesh width at surface
+yLocal = np.linalg.norm(nodesTopCoord[extPlane-1]-nodesTopCoord[extPlane])   # mesh height at surface
 
-# p.DatumAxisByTwoPoint(point1 = (0,0,0), point2 = (1,1,1))
-# p.DatumPlaneByPrincipalPlane(principalPlane=XYPLANE, offset=0)
-
-xLocal = np.linalg.norm(nodesTopCoord[extPlane+1]-nodesTopCoord[extPlane])
-yLocal = np.linalg.norm(nodesTopCoord[extPlane-1]-nodesTopCoord[extPlane])
-# modelHeight = modelHeightRatio*np.linalg.norm(nodesTopCoord[extPlane]- nodesTopCoord[extPlane+2])
-
-# p.DatumPointByCoordinate((boxsize/2,boxsize/2,0))
-# p.DatumPointByCoordinate((-boxsize/2,boxsize/2,0))
-# p.DatumPointByCoordinate((boxsize/2,boxsize/2,boxsize))
+# ------------------------------------------------------------------------------------------------------------
 
 # # # -----------------------
 # # # create surface sets

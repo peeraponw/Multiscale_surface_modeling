@@ -7,13 +7,13 @@ from regionToolset import *
 
 nIntervals = 80
 
-jobName='HET_submodel_1'
+jobName='HET_submodel_2'
 materialName='DP1000'
 materialFile='DP1000M.inp'
 
 isMBW = 0
 
-simTime = 0.001
+simTime = 1e-5
 varList = ('S', 'PEEQ', 'U', 'RF', 'SDV', 'STATUS') # if apply MBW, do not forget SDV
 
 # ------------------------------------------------------------------------------------------------------------
