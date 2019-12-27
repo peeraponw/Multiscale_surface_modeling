@@ -44,46 +44,79 @@ eps = 1e-5
 
 # ------------------------------------------------------------------------------------------------------------
 
-path = 'X:/HET_submodel3D/HET_component_model/'
-
-# # 150um component
-# odbName = 'HET_2_upgraded'  # without .odb
-# elemLocalName = [22738]
-# nodesTopLabel = [8373, 8301, 8300, 8372] # order must be ccw around the surface's normal
-
-# # 100um component
-# odbName = 'HET_1_upgraded'  # without .odb
-# elemLocalName = [80975]
-# nodesTopLabel = [19276, 19167, 19166, 19275] # order must be ccw around the surface's normal
-
-# # 50um component
-# odbName = 'HET_33_upgraded'  # without .odb
-# elemLocalName = [70602]
-# nodesTopLabel = [14324, 14301, 14300, 14323] # order must be ccw around the surface's normal
-
-# #30um component
-# odbName = 'HET_49_re_upgraded'  # without .odb
-# elemLocalName = [164034]
-# nodesTopLabel = [28140, 28121, 28120, 28139] # order must be ccw around the surface's normal
-
-# reference 450um submodel to 150um component model
-odbName = 'HET_2_upgraded'  # without .odb
-elemLocalName = [999]                    # dymmy, not relevant to submodel
-nodesTopLabel = [8518, 8302, 8299, 8515] # order must be ccw around the surface's normal
-
-
-instanceName = 'PLATE'
-stepName = 'move'
-
-extPlane = 1 # 0 or 1, define the orientation of the extruded roughness techniques, will no longer used soon
-
-# ------------------------------------------------------------------------------------------------------------
-
 # meshing parameters
 surfMeshSize = 8
 localMeshSeed = 4
 transMeshSeed = 3
 globalMeshSize = boxsize/10 
+
+# ------------------------------------------------------------------------------------------------------------
+
+path = 'X:/HET_submodel3D/HET_component_model/'
+
+#>> Equal size <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# submodel = 150um, component = 150um
+odbName = 'HET_2_upgraded'  # without .odb
+elemLocalName = [22738]
+nodesTopLabel = [8373, 8301, 8300, 8372] # order must be ccw around the surface's normal
+
+# submodel = 100um, component = 100um
+odbName = 'HET_1_upgraded'  # without .odb
+elemLocalName = [80975]
+nodesTopLabel = [19276, 19167, 19166, 19275] # order must be ccw around the surface's normal
+
+# submodel = 50um, component = 50um
+odbName = 'HET_33_upgraded'  # without .odb
+elemLocalName = [70602]
+nodesTopLabel = [14324, 14301, 14300, 14323] # order must be ccw around the surface's normal
+
+# submodel = 30um, component = 30um
+odbName = 'HET_49_re_upgraded'  # without .odb
+elemLocalName = [164034]
+nodesTopLabel = [28140, 28121, 28120, 28139] # order must be ccw around the surface's normal
+
+#>> Different size (submodel = 450um) <<<<<<<<<<<<<<<<<<<
+
+# submodel = 450um, component = 150um
+odbName = 'HET_2_upgraded'  # without .odb
+elemLocalName = [999]                    # dummy, not relevant to submodel
+nodesTopLabel = [8518, 8302, 8299, 8515] # order must be ccw around the surface's normal
+
+# submodel = 450um, component = 50um
+odbName = 'HET_33_upgraded'  # without .odb
+elemLocalName = [999]                    # dummy, not relevant to submodel
+nodesTopLabel = [14510, 14303, 14294, 14501] # order must be ccw around the surface's normal
+
+#>> Different size (submodel = 300um) <<<<<<<<<<<<<<<<<<<
+
+# submodel = 300um, component = 150um
+odbName = 'HET_2_upgraded'  # without .odb
+elemLocalName = [999]                    # dummy, not relevant to submodel
+nodesTopLabel = [8446, 8302, 8299, 8443] # order must be ccw around the surface's normal
+
+# submodel = 300um, component = 50um
+odbName = 'HET_33_upgraded'  # without .odb
+elemLocalName = [999]                    # dummy, not relevant to submodel
+nodesTopLabel = [14442, 14304, 14296, 14434] # order must be ccw around the surface's normal
+
+# submodel = 300um, component = 30um
+odbName = 'HET_49_re_upgraded'  # without .odb
+elemLocalName = [999]                    # dummy, not relevant to submodel
+nodesTopLabel = [28314, 28124, 28110, 28300] # order must be ccw around the surface's normal
+
+#>> Different size (submodel = 50um) <<<<<<<<<<<<<<<<<<<
+
+# submodel = 50um, component = 30um
+odbName = 'HET_49_re_upgraded'  # without .odb
+elemLocalName = [999]                    # dummy, not relevant to submodel
+nodesTopLabel = [28158, 28120, 28118, 28156] # order must be ccw around the surface's normal
+
+# ------------------------------------------------------------------------------------------------------------
+
+instanceName = 'PLATE'
+stepName = 'move'
+
+extPlane = 1 # 0 or 1, define the orientation of the extruded roughness techniques, will no longer used soon
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -252,16 +285,27 @@ planeNo = int(boxsize/pntInterval)
 if(samplingPnt != boxsize):
     print('wrong input file by boxsize')
 
-## Seperate points from each plane to list
-pt = []
-for i in range(0, boxsize+pntInterval, pntInterval):
-    pt.append([[x-boxsize/2, y+boxsize/2] for [z,x,y] in rough_data if z == i])
 
-# find minimum height
-h = [y+boxsize/2 for [z,x,y] in rough_data]
+# find maximum height of surface boarder to shift box down (fit to subModel BC)
+## mean value referencing to 0
+h_boarder = []
+h_boarder.append([y for [z,x,y] in rough_data if z == 0])
+h_boarder.append([y for [z,x,y] in rough_data if z == boxsize])
+h_boarder.append([y for [z,x,y] in rough_data if x == 0])
+h_boarder.append([y for [z,x,y] in rough_data if x == boxsize])
+maxH = np.amax(h_boarder)
+
+# find minimum height for partition
+## mean value referencing to boxsixe/2
+h = [y+boxsize/2-maxH for [z,x,y] in rough_data]
 minH = np.amin(h)
 partitionH = boxY_min + partition_ratio*(minH - boxY_min)
 partitionH_trans = boxY_min + partition_ratio_trans*(minH - boxY_min)
+
+# Seperate points from each plane to list
+pt = []
+for i in range(0, boxsize+pntInterval, pntInterval):
+    pt.append([[x-boxsize/2, y+boxsize/2-maxH] for [z,x,y] in rough_data if z == i])
 
 # ------------------------------------------------------------------------------------------------------------
 
