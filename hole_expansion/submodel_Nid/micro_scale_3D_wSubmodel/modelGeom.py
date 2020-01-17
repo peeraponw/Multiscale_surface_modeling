@@ -28,12 +28,13 @@ from odbSection import *
 
 # ------------------------------------------------------------------------------------------------------------
 
-boxsize = 450
-surfFile = 'recon2D_Drill2_1_450um_19pnts_trim350-800_waviness.csv'
+boxsize = 300
+surfFile = 'recon2D_Drill2_1_300um_21pnts_trim350-800_x90z90_waviness.csv'
 
 boxH_Ratio = 'full'            # 'full' for cubic box or number for ratio box
-partition_ratio = 0.95         # local mesh: ratio to (minH - boxY_min)
-partition_ratio_trans = 0.80    # trans mesh: ration to (minH - boxY_min)
+curveCorrect_ratio = 0.95      # (1-ratio)*boxsize, surface height reduction to compensate hole curve to flat box
+partition_ratio = 0.90         # local mesh: ratio to (minH - boxY_min)
+partition_ratio_trans = 0.75   # trans mesh: ration to (minH - boxY_min)
 
 if boxH_Ratio == 'full':
     boxY_min = -boxsize/2
@@ -45,15 +46,21 @@ eps = 1e-5
 # ------------------------------------------------------------------------------------------------------------
 
 # meshing parameters
-surfMeshSize = 8
-localMeshSeed = 4
-transMeshSeed = 3
-globalMeshSize = boxsize/10 
+surfMeshSize = 6
+localMeshSeed = 3
+transMeshSeed = 5
+globalMeshSize = 15 
 
 # ------------------------------------------------------------------------------------------------------------
 
 path = 'X:/HET_submodel3D/HET_component_model/'
 
+# waviness 300um to 30um, referenced to middle strip
+odbName = 'HET_49_re_upgraded'  # without .odb
+elemLocalName = [999]                        # dummy
+nodesTopLabel = [28599, 28409, 28395, 28585] # order must be ccw around the surface's normal
+
+'''
 #>> Equal size <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 # submodel = 150um, component = 150um
 odbName = 'HET_2_upgraded'  # without .odb
@@ -110,7 +117,7 @@ nodesTopLabel = [28314, 28124, 28110, 28300] # order must be ccw around the surf
 odbName = 'HET_49_re_upgraded'  # without .odb
 elemLocalName = [999]                    # dummy, not relevant to submodel
 nodesTopLabel = [28158, 28120, 28118, 28156] # order must be ccw around the surface's normal
-
+'''
 # ------------------------------------------------------------------------------------------------------------
 
 instanceName = 'PLATE'
@@ -302,10 +309,14 @@ minH = np.amin(h)
 partitionH = boxY_min + partition_ratio*(minH - boxY_min)
 partitionH_trans = boxY_min + partition_ratio_trans*(minH - boxY_min)
 
-# Seperate points from each plane to list
+# correction of hole curve to flat box
+## reduce height of box surface to -0.1*boxsize
+curveCorrect = (1-curveCorrect_ratio)*boxsize
+
+# Separate points from each plane to list
 pt = []
 for i in range(0, boxsize+pntInterval, pntInterval):
-    pt.append([[x-boxsize/2, y+boxsize/2-maxH] for [z,x,y] in rough_data if z == i])
+    pt.append([[x-boxsize/2, y+boxsize/2-maxH-curveCorrect] for [z,x,y] in rough_data if z == i])
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -498,7 +509,7 @@ myPart.seedEdgeByNumber(number = localMeshSeed, edges = myPart.edges.getByBoundi
                         zMin = -boxsize,    zMax = boxsize))
 myPart.seedEdgeBySize(size = surfMeshSize, edges = myPart.edges.getByBoundingBox(
                         xMin = -boxsize,    xMax = boxsize,
-                        yMin = minH+eps, yMax = boxsize,
+                        yMin = minH-maxH-curveCorrect, yMax = boxsize,
                         zMin = -boxsize,    zMax = boxsize),
                         constraint=FINER)                       
 myPart.generateMesh(regions = (myPart.cells, ))
