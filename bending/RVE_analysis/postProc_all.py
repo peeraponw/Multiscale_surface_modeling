@@ -14,13 +14,6 @@ path = ''
 odbName = 'micro_bending_12' # without .odb
 features = ['peeq', 'mises', 'triax', 'lode', 'volume']
 if odbName[-4:] == '.inp': odbName = odbName[:-4]
-boxsize = 50 
-# localPoint:   smooth (-20.8932, 24.8898)
-#               grind (10.9539, 23.8227)
-#               rough (-15.9562, 22.5945)
-localPoint = (-3.0460, 22.1036)
-localbox = 10
-localRatioY = 0.9
 isEcho = True
 # # # Define name
 instanceName = 'CUT_PART-1'
