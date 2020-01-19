@@ -56,68 +56,20 @@ globalMeshSize = 15
 path = 'X:/HET_submodel3D/HET_component_model/'
 
 # waviness 300um to 30um, referenced to middle strip
-odbName = 'HET_49_re_upgraded'  # without .odb
-elemLocalName = [999]                        # dummy
-nodesTopLabel = [28599, 28409, 28395, 28585] # order must be ccw around the surface's normal
+odbName = 'HET_49_re_upgraded'                  # without .odb
+elemLocalName = [999]                           # dummy
+nodesTopLabel = [28599, 28409, 28395, 28585]    # order must be ccw around the surface's normal
 
-'''
-#>> Equal size <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-# submodel = 150um, component = 150um
-odbName = 'HET_2_upgraded'  # without .odb
-elemLocalName = [22738]
-nodesTopLabel = [8373, 8301, 8300, 8372] # order must be ccw around the surface's normal
+# waviness 450um to 30um, referenced to middle strip
+odbName = 'HET_71'                              # without .odb
+elemLocalName = [999]                           # dummy
+nodesTopLabel = [41417, 40817, 40796, 41396]    # order must be ccw around the surface's normal
 
-# submodel = 100um, component = 100um
-odbName = 'HET_1_upgraded'  # without .odb
-elemLocalName = [80975]
-nodesTopLabel = [19276, 19167, 19166, 19275] # order must be ccw around the surface's normal
+# roughness 30um to 30um, referenced to middle strip
+odbName = 'HET_49_re_upgraded'                  # without .odb
+elemLocalName = [999]                           # dummy
+nodesTopLabel = [28499, 28480, 28478, 28947]    # order must be ccw around the surface's normal
 
-# submodel = 50um, component = 50um
-odbName = 'HET_33_upgraded'  # without .odb
-elemLocalName = [70602]
-nodesTopLabel = [14324, 14301, 14300, 14323] # order must be ccw around the surface's normal
-
-# submodel = 30um, component = 30um
-odbName = 'HET_49_re_upgraded'  # without .odb
-elemLocalName = [164034]
-nodesTopLabel = [28140, 28121, 28120, 28139] # order must be ccw around the surface's normal
-
-#>> Different size (submodel = 450um) <<<<<<<<<<<<<<<<<<<
-
-# submodel = 450um, component = 150um
-odbName = 'HET_2_upgraded'  # without .odb
-elemLocalName = [999]                    # dummy, not relevant to submodel
-nodesTopLabel = [8518, 8302, 8299, 8515] # order must be ccw around the surface's normal
-
-# submodel = 450um, component = 50um
-odbName = 'HET_33_upgraded'  # without .odb
-elemLocalName = [999]                    # dummy, not relevant to submodel
-nodesTopLabel = [14510, 14303, 14294, 14501] # order must be ccw around the surface's normal
-
-#>> Different size (submodel = 300um) <<<<<<<<<<<<<<<<<<<
-
-# submodel = 300um, component = 150um
-odbName = 'HET_2_upgraded'  # without .odb
-elemLocalName = [999]                    # dummy, not relevant to submodel
-nodesTopLabel = [8446, 8302, 8299, 8443] # order must be ccw around the surface's normal
-
-# submodel = 300um, component = 50um
-odbName = 'HET_33_upgraded'  # without .odb
-elemLocalName = [999]                    # dummy, not relevant to submodel
-nodesTopLabel = [14442, 14304, 14296, 14434] # order must be ccw around the surface's normal
-
-# submodel = 300um, component = 30um
-odbName = 'HET_49_re_upgraded'  # without .odb
-elemLocalName = [999]                    # dummy, not relevant to submodel
-nodesTopLabel = [28314, 28124, 28110, 28300] # order must be ccw around the surface's normal
-
-#>> Different size (submodel = 50um) <<<<<<<<<<<<<<<<<<<
-
-# submodel = 50um, component = 30um
-odbName = 'HET_49_re_upgraded'  # without .odb
-elemLocalName = [999]                    # dummy, not relevant to submodel
-nodesTopLabel = [28158, 28120, 28118, 28156] # order must be ccw around the surface's normal
-'''
 # ------------------------------------------------------------------------------------------------------------
 
 instanceName = 'PLATE'
