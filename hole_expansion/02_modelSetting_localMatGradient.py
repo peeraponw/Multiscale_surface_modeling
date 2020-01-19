@@ -88,7 +88,7 @@ if symmFac == 1 or symmFac == 0:
         
 if symmFac == 0:
     myModel.ZsymmBC(createStepName = 'Initial', name='localSymm', 
-        localCsys=platePart.datums[csysKey],
+        localCsys=plateAsm.datums[20],
         region=myAsm.sets['auxBC'])
     # myModel.DisplacementBC(createStepName='Initial', name='localSymm',
     #     region=myAsm.sets['auxBC'],
