@@ -304,7 +304,7 @@ if symmFac == 0:
     myAsm.Set('auxBC',
         faces=plateAsm.faces.getByBoundingCylinder(
         center1=(d/2.*np.sin(asmAngle),t/2.,d/2.*np.cos(asmAngle)), 
-        center2=((holderD/2-meshSizeGlobal)*np.sin(asmAngle),t/2.,(holderD/2-meshSizeGlobal)*np.cos(asmAngle)),
+        center2=((holderD/2-meshSizeGlobal+eps)*np.sin(asmAngle),t/2.,(holderD/2-meshSizeGlobal+eps)*np.cos(asmAngle)),
         radius=t/2.))
 
 # import punch part
