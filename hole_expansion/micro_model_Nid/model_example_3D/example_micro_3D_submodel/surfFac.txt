@@ -1,0 +1,27 @@
+global
+broken timeStep = 28
+
+pnt1
+local breaks before
+broken timeStep = 26
+surface factor = 0.78
+
+pnt2
+local breaks before
+broken timeStep = 26
+surface factor = 0.81
+
+pnt3
+local breaks before
+broken timeStep = 27
+surface factor = 0.88
+
+pnt4
+local breaks before
+broken timeStep = 28
+surface factor = 0.89
+
+no. of selected local pnt = 4
+
+min surfFac at global broken = 0.79
+from pnt 1

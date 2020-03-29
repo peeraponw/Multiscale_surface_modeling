@@ -1,0 +1,2 @@
+broken timeStep = 22
+surface factor = 0.51
