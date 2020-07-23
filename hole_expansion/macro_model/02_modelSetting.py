@@ -5,13 +5,13 @@ from abaqusConstants import *
 from caeModules import *
 from regionToolset import *
 
-nIntervals = 80
+nIntervals = 100
 myModel = mdb.models['Model-1']
 platePart = myModel.parts['plate']
 myAsm = myModel.rootAssembly
 plateAsm = myAsm.instances['plate']
 
-jobName = 'HET_1'
+jobName = 'HET_D10'
 
 materialName = 'DP1000'
 materialFile = 'DP1000M.inp'
