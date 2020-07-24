@@ -1,14 +1,13 @@
 from abaqus import *
 from abaqusConstants import *
 from odbAccess import *
-from odbAccess import *
 from odbSection import *
 import numpy as np
 from time import time
 import sys
 import os
 
-odbName = 'HET_1' # without .odb
+odbName = 'HET_D9_7' # without .odb
 odbDir = ''
 
 fullpath = os.getcwd()
@@ -26,10 +25,10 @@ isEcho = True
 
 
 # symmFac = float(odbName[3])   # extract from file name
-symmFac = 1                     # manual input
+symmFac = 0                     # manual input
                                 ## 1 for quarter, 2 for half, 4 for full, 0 for revolved radial
 if symmFac == 0:
-    revolveAngle = 3            # please fill in if symmFac==0
+    revolveAngle = 10            # please fill in if symmFac==0
 
 
 class elem:
@@ -312,9 +311,9 @@ odbPath = odbDir+odbName # concatenate odb file and dir
 if os.path.isfile(odbPath+'_upgraded.odb'): 
     # if it was uphraded before, use the upgraded one
     odbPath = odbPath+'_upgraded' 
-if odbAccess.isUpgradeRequiredForOdb(odbPath + '.odb'):
+if isUpgradeRequiredForOdb(odbPath + '.odb'):
     # if odb needs to be upgraded, create a new one with '_upgraded' suffix
-	odbAccess.upgradeOdb(existingOdbPath=odbPath + '.odb',
+	upgradeOdb(existingOdbPath=odbPath + '.odb',
 		upgradedOdbPath=odbPath + '_upgraded' + '.odb')
 	myOdb = openOdb(path = odbPath + '_upgraded'+'.odb')
 else:
